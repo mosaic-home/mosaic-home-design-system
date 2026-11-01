@@ -1,0 +1,110 @@
+{
+  "name": "@mosaic-home/design-system",
+  "version": "0.1.0",
+  "description": "Mosaic Home design system: themes, tokens and components for home dashboards and apps. CSS + vanilla TypeScript, with React bindings.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": ["design-system", "design-tokens", "themes", "components", "react", "css", "smart-home", "dashboard"],
+  "homepage": "https://mosaic-home.github.io/mosaic-home-design-system/",
+  "bugs": "https://github.com/mosaic-home/mosaic-home-design-system/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mosaic-home/mosaic-home-design-system.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "files": [
+    "dist",
+    "src",
+    "tokens",
+    "!src/**/*.test.ts",
+    "!src/**/*.test.tsx"
+  ],
+  "sideEffects": [
+    "*.css",
+    "./dist/css/*.js",
+    "./dist/icons.js",
+    "./src/icons.ts"
+  ],
+  "exports": {
+    "./tokens": {
+      "source": "./src/tokens/index.ts",
+      "types": "./dist/tokens/index.d.ts",
+      "default": "./dist/tokens/index.js"
+    },
+    "./icons": {
+      "source": "./src/icons.ts",
+      "types": "./dist/icons.d.ts",
+      "default": "./dist/icons.js"
+    },
+    "./catalog": {
+      "source": "./src/catalog.ts",
+      "types": "./dist/catalog.d.ts",
+      "default": "./dist/catalog.js"
+    },
+    "./web": {
+      "source": "./src/web/index.ts",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.js"
+    },
+    "./react": {
+      "source": "./src/react/index.ts",
+      "types": "./dist/react/index.d.ts",
+      "default": "./dist/react/index.js"
+    },
+    "./style.css": {
+      "source": "./src/web/style.css",
+      "default": "./dist/style.css"
+    },
+    "./themes.css": "./src/web/themes.css",
+    "./css/*.css": "./dist/css/*.css",
+    "./css/*": {
+      "types": "./dist/css/*.d.ts",
+      "default": "./dist/css/*.js"
+    },
+    "./tokens.json": "./tokens/mosaic-home.tokens.json",
+    "./catalog.json": "./tokens/catalog.json"
+  },
+  "scripts": {
+    "tokens": "node tools/build-tokens.ts",
+    "skill": "node tools/build-skill.ts",
+    "build": "node tools/build-tokens.ts && node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsc -p tsconfig.build.json && node tools/bundle-css.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest run",
+    "check": "node tools/build-tokens.ts --check && node tools/build-skill.ts --check && node tools/build-demo.ts --check && npm run lint && npm run typecheck && npm run test",
+    "explorer": "vite explorer",
+    "demo": "node tools/build-demo.ts",
+    "prepublishOnly": "npm run check && npm run build"
+  },
+  "dependencies": {
+    "@mdi/js": "7.4.47"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "10.12.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "happy-dom": "21.0.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.2",
+    "vite": "8.3.4",
+    "vitest": "5.0.4"
+  }
+}

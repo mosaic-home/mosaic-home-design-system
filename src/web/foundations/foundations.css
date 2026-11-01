@@ -1,0 +1,176 @@
+/* Foundations beyond the base: accent headline, keyboard keys, backdrop, boot splash. Every value comes from the theme variables. */
+
+/* Accent headline --------------------------------------------------------------------------------------------- */
+
+.mh-accent-headline {
+  margin: 0;
+  font-family: var(--mh-font-sans);
+  font-size: var(--mh-text-headline);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--mh-heading);
+  text-wrap: balance;
+}
+.mh-accent-headline--display { font-size: var(--mh-text-display); font-weight: 300; line-height: 1; letter-spacing: -0.02em; }
+.mh-accent-headline--title { font-size: var(--mh-text-title); line-height: 1.25; letter-spacing: 0; }
+.mh-accent-headline__accent {
+  font-family: var(--mh-font-serif);
+  font-size: 1.04em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--mh-accent);
+}
+[data-mh-mode='light'] .mh-accent-headline__accent { color: var(--mh-accent-dark); }
+.mh-accent-headline--inherit .mh-accent-headline__accent,
+[data-mh-mode='light'] .mh-accent-headline--inherit .mh-accent-headline__accent { color: inherit; }
+
+/* Keyboard key ------------------------------------------------------------------------------------------------ */
+
+.mh-kbd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-family: var(--mh-font-sans);
+  font-size: var(--mh-text-label);
+  line-height: 1;
+  color: var(--mh-text-faint);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.mh-kbd--sm { gap: 0.2em; font-size: 0.85em; vertical-align: 0.05em; }
+.mh-kbd__key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.9em;
+  height: 1.9em;
+  padding: 0 0.5em;
+  border: var(--mh-border-width) solid var(--mh-outline-strong);
+  border-radius: min(var(--mh-radius-sm), 0.4em);
+  background: var(--mh-surface-raised);
+  box-shadow: 0 var(--mh-border-width) 0 var(--mh-outline-strong);
+  font: inherit;
+  font-weight: 600;
+  color: var(--mh-text);
+}
+.mh-kbd--sm .mh-kbd__key { min-width: 1.7em; height: 1.7em; padding: 0 0.4em; }
+.mh-kbd__sep { font-size: 0.9em; }
+[data-mh-high-contrast] .mh-kbd__key { border-color: var(--mh-text-muted); box-shadow: 0 var(--mh-border-width) 0 var(--mh-text-muted); }
+[data-mh-high-contrast] .mh-kbd { color: var(--mh-text-muted); }
+
+/* Backdrop ---------------------------------------------------------------------------------------------------- */
+
+.mh-backdrop-host { position: relative; isolation: isolate; }
+.mh-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--mh-backdrop);
+  pointer-events: none;
+}
+.mh-backdrop--fixed { position: fixed; }
+/* The glow drifts by moving an oversized backdrop; a flat (calm) backdrop shows no change. */
+.mh-backdrop--drift {
+  background-size: 150% 150%;
+  background-position: 30% 0%;
+  animation: mh-backdrop-drift 28s ease-in-out infinite alternate;
+}
+@keyframes mh-backdrop-drift {
+  0% { background-position: 30% 0%; }
+  50% { background-position: 70% 20%; }
+  100% { background-position: 45% 45%; }
+}
+.mh-backdrop--dim::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--mh-scrim);
+}
+
+/* Boot splash ------------------------------------------------------------------------------------------------- */
+
+.mh-boot-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: var(--mh-space-xl);
+  background: var(--mh-backdrop);
+  color: var(--mh-text);
+  text-align: center;
+  transition:
+    opacity var(--mh-duration-exit) var(--mh-ease),
+    visibility 0s linear var(--mh-duration-exit);
+}
+.mh-boot-splash--inline { position: absolute; z-index: auto; }
+.mh-boot-splash.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.mh-boot-splash__content {
+  display: grid;
+  justify-items: center;
+  gap: var(--mh-space-md);
+  width: 100%;
+  max-width: calc(var(--mh-control-lg) * 6);
+  transition: transform var(--mh-duration-exit) var(--mh-ease);
+}
+.mh-boot-splash.is-leaving .mh-boot-splash__content { transform: scale(1.04); }
+
+.mh-boot-splash__mark {
+  --_s: calc(var(--mh-control-lg) * 1.75);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--_s) * 0.08);
+  width: var(--_s);
+  height: var(--_s);
+  margin-bottom: var(--mh-space-sm);
+}
+[data-mh-device='wearable'] .mh-boot-splash__mark { --_s: calc(var(--mh-control-lg) * 1.25); }
+.mh-boot-splash__tile {
+  --_dx: -35%;
+  --_dy: -35%;
+  border-radius: min(var(--mh-radius-sm), 22%);
+  background: var(--mh-series-1);
+  animation:
+    mh-splash-in var(--mh-duration-enter) var(--mh-ease-out) both,
+    mh-splash-glint 2.8s var(--mh-ease) calc(var(--mh-duration-enter) + var(--mh-duration-slow)) infinite;
+}
+.mh-boot-splash__tile:nth-child(2) { --_dx: 35%; background: var(--mh-series-2); animation-delay: calc(var(--mh-duration-stagger) * 2), calc(var(--mh-duration-enter) + var(--mh-duration-slow) + 0.35s); }
+.mh-boot-splash__tile:nth-child(3) { --_dy: 35%; background: var(--mh-series-3); animation-delay: calc(var(--mh-duration-stagger) * 6), calc(var(--mh-duration-enter) + var(--mh-duration-slow) + 1.05s); }
+.mh-boot-splash__tile:nth-child(4) { --_dx: 35%; --_dy: 35%; background: var(--mh-series-4); animation-delay: calc(var(--mh-duration-stagger) * 4), calc(var(--mh-duration-enter) + var(--mh-duration-slow) + 0.7s); }
+[data-mh-depth='glow'] .mh-boot-splash__mark { filter: drop-shadow(0 0 calc(var(--_s) * 0.12) var(--mh-glow)); }
+@keyframes mh-splash-in {
+  from { opacity: 0; transform: translate(var(--_dx), var(--_dy)) scale(0.4) rotate(-12deg); }
+  to { opacity: 1; transform: none; }
+}
+/* Clockwise, one tile at a time, a short dip and back. */
+@keyframes mh-splash-glint {
+  0%, 30%, 100% { opacity: 1; transform: none; }
+  12% { opacity: 0.55; transform: scale(0.86); }
+}
+
+.mh-boot-splash__name {
+  margin: 0;
+  font-size: var(--mh-text-title);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--mh-heading);
+}
+.mh-boot-splash__message {
+  min-height: 1.45em;
+  margin: 0;
+  font-size: var(--mh-text-label);
+  color: var(--mh-text-muted);
+}
+.mh-boot-splash__progress { width: min(100%, calc(var(--mh-control-lg) * 4)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mh-backdrop--drift,
+  .mh-boot-splash__tile { animation: none; }
+  .mh-boot-splash,
+  .mh-boot-splash__content { transition: none; }
+  .mh-boot-splash.is-leaving .mh-boot-splash__content { transform: none; }
+}

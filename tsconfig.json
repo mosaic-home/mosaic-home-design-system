@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"],
+    "paths": {
+      "@mosaic-home/design-system/tokens": ["./src/tokens/index.ts"],
+      "@mosaic-home/design-system/catalog": ["./src/catalog.ts"],
+      "@mosaic-home/design-system/web": ["./src/web/index.ts"],
+      "@mosaic-home/design-system/react": ["./src/react/index.ts"]
+    }
+  },
+  "include": ["src", "tools", "explorer/src", "explorer/examples", "vitest.config.ts", "explorer/vite.config.ts"]
+}

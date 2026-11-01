@@ -1,0 +1,115 @@
+/* Base: page ground, type and the focus ring. Every value comes from the theme variables (themes.css or applyTheme). */
+
+.mh-root,
+[data-mh-theme] {
+  font-family: var(--mh-font-sans);
+  font-size: var(--mh-text-body);
+  line-height: 1.45;
+  color: var(--mh-text);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The canvas behind a screen: gradient plus ambient glow, or flat in calm themes. */
+.mh-canvas {
+  min-height: 100%;
+  background: var(--mh-backdrop);
+  background-attachment: fixed;
+}
+
+.mh-root *,
+[data-mh-theme] * {
+  box-sizing: border-box;
+}
+
+.mh-root :focus-visible,
+[data-mh-theme] :focus-visible {
+  outline: var(--mh-focus-width) solid var(--mh-focus);
+  outline-offset: 2px;
+}
+
+[data-mh-theme] ::selection {
+  background: var(--mh-selection);
+}
+
+/* Hidden on screen, read by screen readers. */
+.mh-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Cut text to one, two or three lines with an ellipsis. */
+.mh-clamp-1,
+.mh-clamp-2,
+.mh-clamp-3 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow-wrap: anywhere;
+}
+.mh-clamp-2 { -webkit-line-clamp: 2; line-clamp: 2; }
+.mh-clamp-3 { -webkit-line-clamp: 3; line-clamp: 3; }
+
+.mh-icon {
+  display: inline-block;
+  flex: none;
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -0.25em;
+}
+
+/* Text styles */
+.mh-text--display { font-size: var(--mh-text-display); font-weight: 300; line-height: 1; letter-spacing: -0.02em; }
+.mh-text--headline { font-size: var(--mh-text-headline); font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; color: var(--mh-heading); }
+.mh-text--title { font-size: var(--mh-text-title); font-weight: 600; line-height: 1.25; color: var(--mh-heading); }
+.mh-text--body { font-size: var(--mh-text-body); }
+.mh-text--label { font-size: var(--mh-text-label); font-weight: 500; }
+.mh-text--caption { font-size: var(--mh-text-caption); }
+.mh-text--eyebrow { font-family: var(--mh-font-mono); font-size: var(--mh-text-caption); text-transform: uppercase; letter-spacing: 0.08em; }
+.mh-text--mono { font-family: var(--mh-font-mono); }
+.mh-text--muted { color: var(--mh-text-muted); }
+.mh-text--faint { color: var(--mh-text-faint); }
+.mh-text--accent { color: var(--mh-accent); }
+.mh-text--success { color: var(--mh-success); }
+.mh-text--warning { color: var(--mh-warning); }
+.mh-text--danger { color: var(--mh-danger); }
+
+.mh-divider {
+  border: 0;
+  margin: var(--mh-space-sm) 0;
+  height: 1px;
+  background: var(--mh-divider);
+}
+.mh-divider--vertical { width: 1px; height: auto; align-self: stretch; margin: 0 var(--mh-space-sm); }
+.mh-divider--labelled {
+  display: flex;
+  align-items: center;
+  gap: var(--mh-space-sm);
+  height: auto;
+  background: none;
+  color: var(--mh-text-faint);
+  font-size: var(--mh-text-caption);
+}
+.mh-divider--labelled::before,
+.mh-divider--labelled::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--mh-divider);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-mh-theme] *,
+  [data-mh-theme] *::before,
+  [data-mh-theme] *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

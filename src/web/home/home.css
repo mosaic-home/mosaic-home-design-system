@@ -1,0 +1,515 @@
+/* home group: controls for things in a home. Every value comes from the theme variables; the optional home
+   colours (--mh-home-*) are used with a fallback to the theme's general roles. */
+
+@import './climate-energy/climate-energy.css';
+@import './security/security.css';
+@import './rooms/rooms.css';
+@import './media-voice/media-voice.css';
+@import './info/info.css';
+
+/* Media player ------------------------------------------------------------------------------------------------ */
+
+.mh-media-player { display: grid; gap: var(--mh-space-sm); min-width: 0; }
+/* On a narrow card the transport wraps to its own line, at the end. */
+.mh-media-player__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mh-space-sm); min-width: 0; }
+.mh-media-player__art {
+  position: relative;
+  flex: none;
+  width: var(--mh-control-lg);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--mh-radius-sm);
+  background: var(--mh-accent-soft);
+  color: var(--mh-accent);
+}
+.mh-media-player__placeholder { position: absolute; inset: 0; display: grid; place-items: center; }
+.mh-media-player__placeholder .mh-icon { width: 50%; height: 50%; }
+.mh-media-player__image { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.mh-media-player__text { display: grid; flex: 1 1 calc(var(--mh-control-lg) * 2); gap: var(--mh-space-xxs); min-width: 0; }
+.mh-media-player__title,
+.mh-media-player__subtitle { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mh-media-player__title { font-weight: 600; line-height: 1.25; color: var(--mh-heading); }
+.mh-media-player__subtitle { font-size: var(--mh-text-label); color: var(--mh-text-muted); }
+.mh-media-player.is-idle .mh-media-player__title,
+.mh-media-player.is-off .mh-media-player__title { font-weight: 500; color: var(--mh-text-muted); }
+.mh-media-player.is-off .mh-media-player__art { opacity: 0.6; }
+.mh-media-player__transport { display: flex; flex: none; align-items: center; gap: var(--mh-space-xxs); margin-inline-start: auto; }
+.mh-media-player__progress {
+  --_at: 0;
+  position: relative;
+  height: max(2px, calc(var(--mh-control-sm) * 0.0625));
+  overflow: hidden;
+  border-radius: var(--mh-radius-control);
+  background: var(--mh-surface-pressed);
+}
+.mh-media-player__progress-fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: calc(var(--_at) * 100%);
+  background: var(--mh-accent);
+  transition: width var(--mh-duration-normal) linear;
+}
+.mh-media-player.is-buffering .mh-media-player__progress-fill { opacity: 0.5; }
+.mh-media-player__times {
+  display: flex;
+  justify-content: space-between;
+  margin-block-start: calc(var(--mh-space-xs) * -1);
+  font-size: var(--mh-text-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--mh-text-muted);
+}
+.mh-media-player__level-value {
+  flex: none;
+  min-width: 4ch;
+  font-size: var(--mh-text-label);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+  color: var(--mh-text-muted);
+}
+.mh-media-player__volume { display: flex; align-items: center; gap: var(--mh-space-xs); min-width: 0; }
+.mh-media-player__level { flex: 1 1 auto; }
+.mh-media-player__level.is-muted .mh-slider__input { opacity: 0.5; }
+/* Banner art: a 16:9 frame above the row. A wide still fills it; a square cover sits centred at full height over a
+   blurred copy of itself, washed toward the surface so the cover stands out in light and dark themes alike. */
+.mh-media-player__banner {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--mh-radius-md);
+  background: var(--mh-surface-pressed);
+}
+.mh-media-player__banner-image { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.mh-media-player__banner.is-square .mh-media-player__banner-image {
+  inset: 0 auto;
+  inset-inline-start: 50%;
+  width: auto;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  box-shadow: var(--mh-shadow-2);
+}
+[dir='rtl'] .mh-media-player__banner.is-square .mh-media-player__banner-image { translate: 50% 0; }
+.mh-media-player__banner-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(calc(var(--mh-space-lg) * 1.5)) saturate(1.2);
+  scale: 1.25;
+}
+.mh-media-player__banner.is-square::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--mh-surface-solid) 45%, transparent);
+  content: '';
+}
+[data-mh-high-contrast] .mh-media-player__progress { box-shadow: 0 0 0 var(--mh-border-width) var(--mh-text-muted); }
+[data-mh-high-contrast] .mh-media-player__banner { outline: var(--mh-border-width) solid var(--mh-outline-strong); }
+[data-mh-high-contrast] .mh-media-player__banner-backdrop,
+[data-mh-high-contrast] .mh-media-player__banner.is-square::before { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mh-media-player__progress-fill { transition: none; }
+}
+
+/* Camera tile ------------------------------------------------------------------------------------------------- */
+
+.mh-camera-tile { display: grid; gap: var(--mh-space-xs); min-width: 0; margin: 0; }
+.mh-camera-tile__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--mh-radius-md);
+  background: var(--mh-surface-pressed);
+}
+.mh-camera-tile__image { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.mh-camera-tile__placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: var(--mh-text-faint); }
+.mh-camera-tile__placeholder .mh-icon { width: calc(var(--mh-control-md) * 0.75); height: calc(var(--mh-control-md) * 0.75); }
+.mh-camera-tile__caption { display: flex; align-items: center; gap: var(--mh-space-sm); min-width: 0; }
+.mh-camera-tile__text { display: grid; flex: 1 1 auto; min-width: 0; }
+.mh-camera-tile__name,
+.mh-camera-tile__status { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mh-camera-tile__name { font-weight: 600; line-height: 1.25; color: var(--mh-heading); }
+.mh-camera-tile__status { font-size: var(--mh-text-label); color: var(--mh-text-muted); }
+.mh-camera-tile__action { display: flex; flex: none; align-items: center; gap: var(--mh-space-xxs); }
+.mh-camera-tile.is-openable .mh-camera-tile__frame { cursor: pointer; }
+.mh-camera-tile__updated {
+  position: absolute;
+  inset-block-end: var(--mh-space-xs);
+  inset-inline-start: var(--mh-space-xs);
+  padding: var(--mh-space-xxs) var(--mh-space-xs);
+  border-radius: var(--mh-radius-control);
+  background: var(--mh-surface-solid);
+  box-shadow: var(--mh-shadow-1);
+  color: var(--mh-text);
+  font-size: var(--mh-text-label);
+  line-height: 1.2;
+  pointer-events: none;
+}
+/* In a control card's media slot the card is the frame: the picture runs edge to edge, the caption is padded like the header. */
+.mh-control-card__media > .mh-camera-tile { gap: 0; }
+.mh-control-card__media > .mh-camera-tile .mh-camera-tile__frame { border-radius: 0; }
+.mh-control-card__media > .mh-camera-tile .mh-camera-tile__caption { padding: var(--mh-space-sm) var(--mh-space-md) 0; background: var(--mh-surface); }
+[data-mh-high-contrast] .mh-camera-tile__frame { outline: var(--mh-border-width) solid var(--mh-outline-strong); }
+
+/* Weather now (icon tints: .mh-weather-icon in data-display.css) ------------------------------------------------ */
+
+/* Icon and temperature stay together; the words sit beside them while there is room for a readable column, and
+   move below them in a narrow card rather than squeezing to a letter per line. */
+.mh-weather-now {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--mh-space-sm);
+  row-gap: var(--mh-space-xxs);
+  min-width: 0;
+}
+.mh-weather-now__place {
+  flex-basis: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--mh-text-label);
+  font-weight: 500;
+  color: var(--mh-text-muted);
+}
+.mh-weather-now__reading { display: flex; align-items: center; gap: var(--mh-space-sm); flex: none; max-width: 100%; }
+.mh-weather-now__icon { flex: none; width: var(--mh-text-display); height: var(--mh-text-display); }
+.mh-weather-now__temperature {
+  font-size: var(--mh-text-display);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--mh-heading);
+}
+.mh-weather-now__text { flex: 1 1 7em; display: grid; gap: var(--mh-space-xxs); min-width: min(7em, 100%); }
+.mh-weather-now__condition { font-size: var(--mh-text-title); font-weight: 600; line-height: 1.25; overflow-wrap: break-word; color: var(--mh-text); }
+.mh-weather-now__detail { font-size: var(--mh-text-label); overflow-wrap: break-word; color: var(--mh-text-muted); }
+
+/* Agenda ------------------------------------------------------------------------------------------------------ */
+
+.mh-agenda { display: grid; gap: var(--mh-space-md); min-width: 0; }
+.mh-agenda__day { display: grid; gap: var(--mh-space-xs); }
+.mh-agenda__day-label { margin: 0; font-size: var(--mh-text-label); font-weight: 600; line-height: 1.25; color: var(--mh-text-muted); }
+.mh-agenda__chips,
+.mh-agenda__events { margin: 0; padding: 0; list-style: none; }
+.mh-agenda__chips { display: flex; flex-wrap: wrap; gap: var(--mh-space-xxs); }
+.mh-agenda__events { display: grid; gap: var(--mh-space-sm); }
+.mh-agenda__chip,
+.mh-agenda__event { --_c: var(--mh-accent); }
+.mh-agenda__chip {
+  max-width: 100%;
+  padding: var(--mh-space-xxs) var(--mh-space-sm);
+  border-radius: var(--mh-radius-control);
+  background: color-mix(in srgb, var(--_c) 22%, var(--mh-surface-solid));
+  font-size: var(--mh-text-label);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  color: var(--mh-text);
+}
+[data-mh-high-contrast] .mh-agenda__chip { outline: var(--mh-border-width) solid var(--_c); }
+.mh-agenda__event { display: grid; grid-template-columns: auto auto minmax(0, 1fr); column-gap: var(--mh-space-sm); }
+.mh-agenda__bar { width: max(3px, calc(var(--mh-space-xxs) * 1.5)); border-radius: var(--mh-radius-control); background: var(--_c); }
+.mh-agenda__time {
+  display: grid;
+  align-content: start;
+  min-width: 5ch;
+  font-size: var(--mh-text-label);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+  color: var(--mh-text);
+}
+.mh-agenda__end { color: var(--mh-text-muted); }
+.mh-agenda__body { display: grid; align-content: start; min-width: 0; }
+.mh-agenda__title { font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; color: var(--mh-text); }
+.mh-agenda__location { font-size: var(--mh-text-label); overflow-wrap: anywhere; color: var(--mh-text-muted); }
+.mh-agenda__empty,
+.mh-agenda__more { margin: 0; font-size: var(--mh-text-label); color: var(--mh-text-muted); }
+.mh-agenda__chip--c1, .mh-agenda__event--c1 { --_c: var(--mh-series-1); }
+.mh-agenda__chip--c2, .mh-agenda__event--c2 { --_c: var(--mh-series-2); }
+.mh-agenda__chip--c3, .mh-agenda__event--c3 { --_c: var(--mh-series-3); }
+.mh-agenda__chip--c4, .mh-agenda__event--c4 { --_c: var(--mh-series-4); }
+.mh-agenda__chip--c5, .mh-agenda__event--c5 { --_c: var(--mh-series-5); }
+.mh-agenda__chip--c6, .mh-agenda__event--c6 { --_c: var(--mh-series-6); }
+
+/* Home colours used by the controls below. The --mh-home-* add-on (applyHomeColors) is optional: without it, heat and
+   lit lights take the warning role and cooling the info role. */
+.mh-control-card,
+.mh-thermostat,
+.mh-light-control {
+  --_heat: var(--mh-home-heat, var(--mh-warning));
+  --_cool: var(--mh-home-cool, var(--mh-info));
+  --_dry: var(--mh-home-dry, var(--mh-warning));
+  --_lit: var(--mh-home-light-on, var(--mh-warning));
+}
+
+/* Control card ------------------------------------------------------------------------------------------------ */
+
+.mh-control-card {
+  --_tone: var(--mh-accent);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: var(--mh-border-width) solid var(--mh-panel-outline);
+  border-radius: var(--mh-radius-lg);
+  background: var(--mh-surface);
+  box-shadow: var(--mh-shadow-1);
+  color: var(--mh-text);
+  text-align: start;
+}
+[data-mh-high-contrast] .mh-control-card { background: var(--mh-surface-solid); border-color: var(--mh-outline); }
+.mh-control-card--warm { --_tone: var(--_lit); }
+.mh-control-card--heat { --_tone: var(--_heat); }
+.mh-control-card--cool { --_tone: var(--_cool); }
+
+.mh-control-card__media {
+  overflow: hidden;
+  border-radius: calc(var(--mh-radius-lg) - var(--mh-border-width)) calc(var(--mh-radius-lg) - var(--mh-border-width)) 0 0;
+  background: var(--mh-surface-pressed);
+}
+.mh-control-card__media > img,
+.mh-control-card__media > video,
+.mh-control-card__media > picture,
+.mh-control-card__media > picture > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.mh-control-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--mh-space-sm);
+  padding: var(--mh-space-sm) var(--mh-space-md);
+}
+.mh-control-card__main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--mh-space-sm);
+  min-width: 0;
+  min-height: var(--mh-control-md);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+}
+button.mh-control-card__main {
+  margin: calc(var(--mh-space-xs) * -1);
+  padding: var(--mh-space-xs);
+  border-radius: var(--mh-radius-md);
+  cursor: pointer;
+  transition: background-color var(--mh-duration-fast) var(--mh-ease);
+}
+button.mh-control-card__main:hover { background: var(--mh-hover); }
+button.mh-control-card__main:focus-visible { outline: var(--mh-focus-width) solid var(--mh-focus); outline-offset: 0; }
+
+.mh-control-card__badge {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--mh-control-md);
+  height: var(--mh-control-md);
+  border-radius: min(var(--mh-radius-control), 50%);
+  background: var(--mh-surface-pressed);
+  color: var(--mh-text-muted);
+  transition: background-color var(--mh-duration-normal) var(--mh-ease), color var(--mh-duration-normal) var(--mh-ease);
+}
+.mh-control-card__badge .mh-icon { width: 55%; height: 55%; }
+.mh-control-card.is-active .mh-control-card__badge { background: color-mix(in srgb, var(--_tone) 20%, transparent); color: var(--_tone); }
+[data-mh-mode='light'] .mh-control-card.is-active .mh-control-card__badge { color: color-mix(in srgb, var(--_tone) 70%, var(--mh-text)); }
+[data-mh-high-contrast] .mh-control-card.is-active .mh-control-card__badge { box-shadow: inset 0 0 0 var(--mh-border-width) var(--_tone); }
+
+.mh-control-card__text { display: grid; flex: 1; gap: var(--mh-space-xxs); min-width: 0; }
+.mh-control-card__title {
+  overflow-wrap: anywhere;
+  font-size: var(--mh-text-body);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--mh-heading);
+}
+.mh-control-card__state {
+  overflow-wrap: anywhere;
+  font-size: var(--mh-text-label);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+  color: var(--mh-text-muted);
+}
+
+/* The slots are fieldsets so `unavailable` disables what is in them; they draw nothing themselves. */
+.mh-control-card__control,
+.mh-control-card__body {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.mh-control-card__control { display: flex; flex: none; align-items: center; gap: var(--mh-space-xs); }
+.mh-control-card__body { display: grid; gap: var(--mh-space-md); padding: 0 var(--mh-space-md) var(--mh-space-md); }
+
+.mh-control-card.is-loading .mh-control-card__main { opacity: 0.6; }
+.mh-control-card.is-unavailable .mh-control-card__badge { background: var(--mh-surface-pressed); color: var(--mh-text-faint); box-shadow: none; }
+.mh-control-card.is-unavailable .mh-control-card__title { color: var(--mh-text-muted); }
+.mh-control-card.is-unavailable .mh-control-card__state { color: var(--mh-text-faint); }
+.mh-control-card.is-unavailable .mh-control-card__media { opacity: 0.5; }
+
+/* Thermostat -------------------------------------------------------------------------------------------------- */
+
+.mh-thermostat { display: grid; gap: var(--mh-space-md); min-width: 0; text-align: center; }
+.mh-thermostat__targets { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--mh-space-sm) var(--mh-space-xl); }
+.mh-thermostat__target { display: grid; justify-items: center; gap: var(--mh-space-xxs); min-width: 0; }
+.mh-thermostat__target-label { font-size: var(--mh-text-label); font-weight: 600; color: var(--mh-text-muted); }
+.mh-thermostat__target--low .mh-thermostat__target-label { color: var(--_heat); }
+.mh-thermostat__target--high .mh-thermostat__target-label { color: var(--_cool); }
+[data-mh-mode='light'] .mh-thermostat__target--low .mh-thermostat__target-label { color: color-mix(in srgb, var(--_heat) 70%, var(--mh-text)); }
+[data-mh-mode='light'] .mh-thermostat__target--high .mh-thermostat__target-label { color: color-mix(in srgb, var(--_cool) 70%, var(--mh-text)); }
+.mh-thermostat__adjust { display: flex; align-items: center; gap: var(--mh-space-sm); }
+.mh-thermostat__value {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 3.2ch;
+  font-size: var(--mh-text-headline);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--mh-heading);
+  transition: color var(--mh-duration-fast) var(--mh-ease);
+}
+/* A target chosen here and not confirmed by the device yet. */
+.mh-thermostat.is-pending .mh-thermostat__value { color: var(--mh-text-muted); }
+.mh-thermostat--range .mh-thermostat__value { font-size: calc(var(--mh-text-headline) * 0.75); }
+.mh-thermostat__unit { margin-top: 0.12em; font-size: 0.42em; font-weight: 600; color: var(--mh-text-muted); }
+.mh-thermostat__status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--mh-space-xs) var(--mh-space-md);
+  font-size: var(--mh-text-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--mh-text-muted);
+}
+.mh-thermostat__action { --_tone: var(--mh-text-muted); display: inline-flex; align-items: center; gap: var(--mh-space-xs); font-weight: 600; color: var(--_tone); }
+.mh-thermostat__action::before {
+  content: '';
+  width: var(--mh-space-sm);
+  height: var(--mh-space-sm);
+  border-radius: var(--mh-radius-full);
+  background: currentColor;
+}
+.mh-thermostat__action--heating { --_tone: var(--_heat); }
+.mh-thermostat__action--cooling { --_tone: var(--_cool); }
+.mh-thermostat__action--drying { --_tone: var(--_dry); }
+.mh-thermostat__action--fan { --_tone: var(--mh-accent); }
+.mh-thermostat__action--off::before { background: transparent; box-shadow: inset 0 0 0 max(var(--mh-border-width), 1.5px) currentColor; }
+[data-mh-mode='light'] .mh-thermostat__action { color: color-mix(in srgb, var(--_tone) 70%, var(--mh-text)); }
+.mh-thermostat__mode { display: grid; min-width: 0; text-align: start; }
+
+.mh-thermostat--compact { gap: var(--mh-space-sm); }
+.mh-thermostat--compact .mh-thermostat__value { font-size: calc(var(--mh-text-title) * 1.4); }
+.mh-thermostat--compact.mh-thermostat--range .mh-thermostat__value { font-size: var(--mh-text-title); }
+.mh-thermostat--compact .mh-thermostat__adjust { gap: var(--mh-space-xs); }
+.mh-thermostat--compact .mh-thermostat__status { font-size: var(--mh-text-caption); }
+.mh-thermostat.is-disabled .mh-thermostat__value { color: var(--mh-text-muted); }
+
+/* Light control ----------------------------------------------------------------------------------------------- */
+
+.mh-light-control { display: grid; gap: var(--mh-space-md); min-width: 0; }
+/* Track colours: brightness fills with the lit colour, colour temperature runs warm to cool, hue round the wheel. */
+.mh-slider.mh-light-control__slider { --_track: calc(var(--mh-control-sm) * 0.3125); }
+.mh-light-control__slider .mh-slider__input { --_fill-colour: var(--_lit); --_thumb: var(--_lit); }
+.mh-light-control:not(.is-on) .mh-light-control__slider--brightness .mh-slider__input { --_fill-colour: var(--mh-text-faint); --_thumb: var(--mh-text-muted); }
+.mh-light-control__slider--brightness .mh-slider__input::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, var(--_fill-colour) var(--_fill), var(--mh-surface-pressed) var(--_fill));
+}
+.mh-light-control__slider--brightness .mh-slider__input::-moz-range-progress { background: var(--_fill-colour); }
+.mh-light-control__slider--temperature .mh-slider__input {
+  --_spectrum: linear-gradient(to right, var(--_lit), var(--_cool));
+  --_thumb: color-mix(in srgb, var(--_cool) calc(var(--_at) * 100%), var(--_lit));
+}
+/* The hue track is the colour being chosen, not a theme colour, so it is spelled out. */
+.mh-light-control__slider--hue .mh-slider__input {
+  --_spectrum: linear-gradient(to right, hsl(0 100% 50%), hsl(60 100% 50%), hsl(120 100% 50%), hsl(180 100% 50%), hsl(240 100% 50%), hsl(300 100% 50%), hsl(360 100% 50%));
+  --_thumb: hsl(var(--_value) 100% 50%);
+}
+.mh-light-control__slider--temperature .mh-slider__input::-webkit-slider-runnable-track,
+.mh-light-control__slider--hue .mh-slider__input::-webkit-slider-runnable-track { background: var(--_spectrum); }
+.mh-light-control__slider--temperature .mh-slider__input::-moz-range-track,
+.mh-light-control__slider--hue .mh-slider__input::-moz-range-track { background: var(--_spectrum); }
+.mh-light-control__slider--temperature .mh-slider__input::-moz-range-progress,
+.mh-light-control__slider--hue .mh-slider__input::-moz-range-progress { background: transparent; }
+.mh-light-control__slider .mh-slider__input::-webkit-slider-thumb { background: var(--_thumb); box-shadow: 0 0 0 var(--mh-border-width) var(--mh-outline-strong); }
+.mh-light-control__slider .mh-slider__input::-moz-range-thumb { background: var(--_thumb); box-shadow: 0 0 0 var(--mh-border-width) var(--mh-outline-strong); }
+
+/* Position control -------------------------------------------------------------------------------------------- */
+
+.mh-position-control { display: grid; gap: var(--mh-space-md); min-width: 0; }
+.mh-position-control__buttons { display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; gap: var(--mh-space-sm); }
+.mh-position-control__button { min-width: 0; padding-inline: var(--mh-space-sm); }
+.mh-position-control__button .mh-button__label { overflow: hidden; text-overflow: ellipsis; }
+.mh-position-control__button.is-active { border-color: var(--mh-accent); color: var(--mh-accent); }
+[data-mh-mode='light'] .mh-position-control__button.is-active { color: var(--mh-accent-dark); }
+.mh-position-control__button--open.is-active .mh-icon { animation: mh-position-drift 1.1s var(--mh-ease) infinite alternate; }
+.mh-position-control__button--close.is-active .mh-icon { animation: mh-position-drift 1.1s var(--mh-ease) infinite alternate-reverse; }
+@keyframes mh-position-drift {
+  from { transform: translateY(12%); }
+  to { transform: translateY(-12%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mh-position-control__button.is-active .mh-icon { animation: none; }
+}
+
+/* Lock control ------------------------------------------------------------------------------------------------ */
+
+.mh-lock-control { --_tone: var(--mh-text-muted); display: grid; gap: var(--mh-space-md); min-width: 0; }
+.mh-lock-control--locked { --_tone: var(--mh-success); }
+.mh-lock-control--unlocked,
+.mh-lock-control--open,
+.mh-lock-control--opening { --_tone: var(--mh-warning); }
+.mh-lock-control--jammed { --_tone: var(--mh-danger); }
+.mh-lock-control__status {
+  display: flex;
+  align-items: center;
+  gap: var(--mh-space-sm);
+  font-size: var(--mh-text-body);
+  font-weight: 600;
+  color: var(--mh-heading);
+}
+.mh-lock-control__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--mh-control-md);
+  height: var(--mh-control-md);
+  border-radius: min(var(--mh-radius-control), 50%);
+  background: color-mix(in srgb, var(--_tone) 18%, transparent);
+  color: var(--_tone);
+}
+.mh-lock-control__icon .mh-icon { width: 55%; height: 55%; }
+[data-mh-mode='light'] .mh-lock-control__icon { color: color-mix(in srgb, var(--_tone) 70%, var(--mh-text)); }
+.mh-lock-control--jammed .mh-lock-control__status {
+  padding: var(--mh-space-xs);
+  border: var(--mh-border-width) solid var(--mh-danger);
+  border-radius: var(--mh-radius-md);
+  background: var(--mh-danger-soft);
+}
+.mh-lock-control--jammed .mh-lock-control__state { color: var(--mh-danger); }
+[data-mh-mode='light'] .mh-lock-control--jammed .mh-lock-control__state { color: color-mix(in srgb, var(--mh-danger) 75%, var(--mh-text)); }
+.mh-lock-control.is-busy .mh-lock-control__icon { animation: mh-lock-busy 1.2s var(--mh-ease) infinite alternate; }
+@keyframes mh-lock-busy {
+  to { opacity: 0.45; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mh-lock-control.is-busy .mh-lock-control__icon { animation: none; }
+}
+.mh-lock-control__actions { display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; gap: var(--mh-space-sm); }
+.mh-lock-control__button { min-width: 0; padding-block: var(--mh-space-xs); padding-inline: var(--mh-space-sm); line-height: 1.2; white-space: normal; }
+.mh-lock-control__button.is-confirming { border-color: var(--mh-warning); background: var(--mh-warning-soft); color: var(--mh-text); }
+.mh-lock-control__button.is-confirming:hover:not(:disabled) { background: color-mix(in srgb, var(--mh-warning) 26%, transparent); }

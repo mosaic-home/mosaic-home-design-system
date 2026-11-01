@@ -1,0 +1,1213 @@
+{
+  "groups": [
+    {
+      "id": "foundations",
+      "name": "Foundations"
+    },
+    {
+      "id": "actions",
+      "name": "Actions"
+    },
+    {
+      "id": "text-inputs",
+      "name": "Text inputs"
+    },
+    {
+      "id": "choice-inputs",
+      "name": "Choice & range"
+    },
+    {
+      "id": "pickers",
+      "name": "Pickers"
+    },
+    {
+      "id": "navigation",
+      "name": "Navigation"
+    },
+    {
+      "id": "overlays",
+      "name": "Overlays"
+    },
+    {
+      "id": "feedback",
+      "name": "Feedback"
+    },
+    {
+      "id": "data-display",
+      "name": "Data display"
+    },
+    {
+      "id": "charts",
+      "name": "Charts & instruments"
+    },
+    {
+      "id": "media",
+      "name": "Media & editors"
+    },
+    {
+      "id": "layout",
+      "name": "Layout & shells"
+    },
+    {
+      "id": "home",
+      "name": "Home controls"
+    }
+  ],
+  "entries": [
+    {
+      "id": "text",
+      "name": "Text",
+      "group": "foundations",
+      "summary": "Type scale: jumbo to caption, mono eyebrows and section titles, tones.",
+      "web": true
+    },
+    {
+      "id": "accent-headline",
+      "name": "Accent headline",
+      "group": "foundations",
+      "summary": "Headline with one serif-italic accent phrase.",
+      "web": true
+    },
+    {
+      "id": "icon",
+      "name": "Icon",
+      "group": "foundations",
+      "summary": "One SVG icon set for both renderers (Material Design Icons).",
+      "web": true
+    },
+    {
+      "id": "kbd",
+      "name": "Keyboard key",
+      "group": "foundations",
+      "summary": "Key caps and shortcut chords (Ctrl + K).",
+      "web": true
+    },
+    {
+      "id": "divider",
+      "name": "Divider",
+      "group": "foundations",
+      "summary": "Horizontal or vertical rule, optionally labelled.",
+      "web": true
+    },
+    {
+      "id": "backdrop",
+      "name": "Backdrop",
+      "group": "foundations",
+      "summary": "The canvas gradient and ambient glow behind screens; off in calm themes.",
+      "web": true
+    },
+    {
+      "id": "boot-splash",
+      "name": "Boot splash",
+      "group": "foundations",
+      "summary": "An animated start screen with the product mark.",
+      "web": true
+    },
+    {
+      "id": "palette",
+      "name": "Palette",
+      "group": "foundations",
+      "summary": "Every colour role of the theme.",
+      "web": true
+    },
+    {
+      "id": "type-scale",
+      "name": "Type scale",
+      "group": "foundations",
+      "summary": "The text styles, jumbo to caption, at this device class.",
+      "web": true
+    },
+    {
+      "id": "shape-space",
+      "name": "Shape and space",
+      "group": "foundations",
+      "summary": "Radii, spacing and touch targets from the theme character.",
+      "web": true
+    },
+    {
+      "id": "elevation",
+      "name": "Elevation",
+      "group": "foundations",
+      "summary": "Flat, raised and overlay surfaces: shadow, glow or none.",
+      "web": true
+    },
+    {
+      "id": "button",
+      "name": "Button",
+      "group": "actions",
+      "summary": "Primary, secondary, text and danger buttons in three sizes, with icon and loading states.",
+      "web": true
+    },
+    {
+      "id": "icon-button",
+      "name": "Icon button",
+      "group": "actions",
+      "summary": "Icon-only button with tones, sizes and a filled variant.",
+      "web": true
+    },
+    {
+      "id": "button-group",
+      "name": "Button group",
+      "group": "actions",
+      "summary": "Joined buttons, a toolbar segment.",
+      "web": true
+    },
+    {
+      "id": "link",
+      "name": "Link",
+      "group": "actions",
+      "summary": "Inline text link: accent, muted or inherit.",
+      "web": true
+    },
+    {
+      "id": "favourite-toggle",
+      "name": "Favourite toggle",
+      "group": "actions",
+      "summary": "Star toggle for favourites.",
+      "web": true
+    },
+    {
+      "id": "field",
+      "name": "Field",
+      "group": "text-inputs",
+      "summary": "Label, helper, error and success around any control.",
+      "web": true
+    },
+    {
+      "id": "text-field",
+      "name": "Text field",
+      "group": "text-inputs",
+      "summary": "Text input: eyebrow or floating label, adornments, validation, counter.",
+      "web": true
+    },
+    {
+      "id": "text-area",
+      "name": "Text area",
+      "group": "text-inputs",
+      "summary": "Multi-line input that grows with its text, with a character count.",
+      "web": true
+    },
+    {
+      "id": "search-field",
+      "name": "Search field",
+      "group": "text-inputs",
+      "summary": "Search box with clear button and keyboard-driven suggestions.",
+      "web": true
+    },
+    {
+      "id": "composer",
+      "name": "Composer",
+      "group": "text-inputs",
+      "summary": "Message input for chat and assistants: grows to six lines, action slots, mode chip, suggestions.",
+      "web": true
+    },
+    {
+      "id": "number-input",
+      "name": "Number input",
+      "group": "text-inputs",
+      "summary": "Number entry with − / + buttons, units and drag-to-scrub.",
+      "web": true
+    },
+    {
+      "id": "secret-field",
+      "name": "Secret field",
+      "group": "text-inputs",
+      "summary": "Password / API key entry with reveal and copy.",
+      "web": true
+    },
+    {
+      "id": "hotkey-field",
+      "name": "Hotkey field",
+      "group": "text-inputs",
+      "summary": "Records a keyboard shortcut.",
+      "web": true
+    },
+    {
+      "id": "command-bar",
+      "name": "Command bar",
+      "group": "text-inputs",
+      "summary": "Mono prompt with suggestions and history.",
+      "web": true
+    },
+    {
+      "id": "duration-field",
+      "name": "Duration field",
+      "group": "text-inputs",
+      "summary": "Free-text duration entry (\"1h 30m\").",
+      "web": true
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "group": "text-inputs",
+      "summary": "Custom dropdown with search, groups and icons.",
+      "web": true
+    },
+    {
+      "id": "multi-select",
+      "name": "Multi-select",
+      "group": "text-inputs",
+      "summary": "Pick several options, shown as removable chips.",
+      "web": true
+    },
+    {
+      "id": "transfer-list",
+      "name": "Transfer list",
+      "group": "text-inputs",
+      "summary": "Move items between two lists.",
+      "web": true
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "group": "choice-inputs",
+      "summary": "Checkbox with indeterminate state, and checkbox groups.",
+      "web": true
+    },
+    {
+      "id": "radio-group",
+      "name": "Radio group",
+      "group": "choice-inputs",
+      "summary": "One of several, vertical or inline.",
+      "web": true
+    },
+    {
+      "id": "switch",
+      "name": "Switch",
+      "group": "choice-inputs",
+      "summary": "On/off switch and the settings toggle row.",
+      "web": true
+    },
+    {
+      "id": "segmented-control",
+      "name": "Segmented control",
+      "group": "choice-inputs",
+      "summary": "Pill radio group for a few options.",
+      "web": true
+    },
+    {
+      "id": "toggle-group",
+      "name": "Toggle group",
+      "group": "choice-inputs",
+      "summary": "Icon or text toggles, single or multiple.",
+      "web": true
+    },
+    {
+      "id": "chip",
+      "name": "Chip",
+      "group": "choice-inputs",
+      "summary": "Selectable or removable pill; chip groups and weekday picker.",
+      "web": true
+    },
+    {
+      "id": "slider",
+      "name": "Slider",
+      "group": "choice-inputs",
+      "summary": "Single value slider, horizontal or vertical, with marks.",
+      "web": true
+    },
+    {
+      "id": "range-slider",
+      "name": "Range slider",
+      "group": "choice-inputs",
+      "summary": "Two-thumb range.",
+      "web": true
+    },
+    {
+      "id": "radial-dial",
+      "name": "Radial dial",
+      "group": "choice-inputs",
+      "summary": "Knob for angles and amounts.",
+      "web": true
+    },
+    {
+      "id": "click-wheel",
+      "name": "Click wheel",
+      "group": "choice-inputs",
+      "summary": "Large rotary wheel with ticks.",
+      "web": true
+    },
+    {
+      "id": "stepper",
+      "name": "Stepper",
+      "group": "choice-inputs",
+      "summary": "− value + for small counts.",
+      "web": true
+    },
+    {
+      "id": "rating",
+      "name": "Rating",
+      "group": "choice-inputs",
+      "summary": "Star rating, read-only or editable.",
+      "web": true
+    },
+    {
+      "id": "date-time-field",
+      "name": "Date & time field",
+      "group": "pickers",
+      "summary": "Platform date/time input.",
+      "web": true
+    },
+    {
+      "id": "date-picker",
+      "name": "Date picker",
+      "group": "pickers",
+      "summary": "Calendar popover for one date.",
+      "web": true
+    },
+    {
+      "id": "date-range-picker",
+      "name": "Date range picker",
+      "group": "pickers",
+      "summary": "Calendar for a start and end date.",
+      "web": true
+    },
+    {
+      "id": "color-picker",
+      "name": "Colour picker",
+      "group": "pickers",
+      "summary": "Swatches, HSV field, hue and alpha, hex entry, eyedropper.",
+      "web": true
+    },
+    {
+      "id": "gradient-editor",
+      "name": "Gradient editor",
+      "group": "pickers",
+      "summary": "Multi-stop gradient with colour and opacity stops.",
+      "web": true
+    },
+    {
+      "id": "icon-picker",
+      "name": "Icon picker",
+      "group": "pickers",
+      "summary": "Pick an icon from a grid.",
+      "web": true
+    },
+    {
+      "id": "file-drop-zone",
+      "name": "File drop zone",
+      "group": "pickers",
+      "summary": "Drop files or browse.",
+      "web": true
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "group": "navigation",
+      "summary": "Tabs with panels: underline, pill or boxed.",
+      "web": true
+    },
+    {
+      "id": "document-tabs",
+      "name": "Document tabs",
+      "group": "navigation",
+      "summary": "Closable editor tabs with unsaved dot.",
+      "web": true
+    },
+    {
+      "id": "menu-bar",
+      "name": "Menu bar",
+      "group": "navigation",
+      "summary": "Desktop menu bar with submenus and shortcuts.",
+      "web": true
+    },
+    {
+      "id": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "group": "navigation",
+      "summary": "Where you are, one step at a time.",
+      "web": true
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "group": "navigation",
+      "summary": "Page buttons with ellipses.",
+      "web": true
+    },
+    {
+      "id": "steps",
+      "name": "Steps",
+      "group": "navigation",
+      "summary": "Wizard progress: horizontal or vertical, with complete and error states.",
+      "web": true
+    },
+    {
+      "id": "nav-rail",
+      "name": "Navigation rail",
+      "group": "navigation",
+      "summary": "Side navigation with icons, labels and badges.",
+      "web": true
+    },
+    {
+      "id": "page-header",
+      "name": "Page header",
+      "group": "navigation",
+      "summary": "Eyebrow, title, subtitle and actions.",
+      "web": true
+    },
+    {
+      "id": "split-button",
+      "name": "Split button",
+      "group": "overlays",
+      "summary": "A main action with a menu of alternatives.",
+      "web": true
+    },
+    {
+      "id": "dialog",
+      "name": "Dialog",
+      "group": "overlays",
+      "summary": "Modal dialog, optionally draggable.",
+      "web": true
+    },
+    {
+      "id": "confirm",
+      "name": "Confirm",
+      "group": "overlays",
+      "summary": "Promise-based confirm with destructive and type-to-confirm modes.",
+      "web": true
+    },
+    {
+      "id": "bottom-sheet",
+      "name": "Bottom sheet",
+      "group": "overlays",
+      "summary": "Sheet on phones, centred panel on wide screens.",
+      "web": true
+    },
+    {
+      "id": "drawer",
+      "name": "Drawer",
+      "group": "overlays",
+      "summary": "Side panel from the left or right.",
+      "web": true
+    },
+    {
+      "id": "popover",
+      "name": "Popover",
+      "group": "overlays",
+      "summary": "Floating panel anchored to a control.",
+      "web": true
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "group": "overlays",
+      "summary": "Short hint on hover or focus.",
+      "web": true
+    },
+    {
+      "id": "menu",
+      "name": "Menu",
+      "group": "overlays",
+      "summary": "Dropdown and context menus with icons, shortcuts and submenus.",
+      "web": true
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "group": "overlays",
+      "summary": "Transient message with variants, an action and a queue.",
+      "web": true
+    },
+    {
+      "id": "command-palette",
+      "name": "Command palette",
+      "group": "overlays",
+      "summary": "Search every command from the keyboard.",
+      "web": true
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "group": "feedback",
+      "summary": "Inline message: info, success, warning, error; dismissible.",
+      "web": true
+    },
+    {
+      "id": "progress-bar",
+      "name": "Progress bar",
+      "group": "feedback",
+      "summary": "Determinate or indeterminate, with tones.",
+      "web": true
+    },
+    {
+      "id": "progress-ring",
+      "name": "Progress ring",
+      "group": "feedback",
+      "summary": "Circular progress with a value in the middle.",
+      "web": true
+    },
+    {
+      "id": "progress-list",
+      "name": "Progress list",
+      "group": "feedback",
+      "summary": "Several jobs at once: name, percentage, bar and a status line each.",
+      "web": true
+    },
+    {
+      "id": "spinner",
+      "name": "Spinner",
+      "group": "feedback",
+      "summary": "Busy indicator in three sizes.",
+      "web": true
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "group": "feedback",
+      "summary": "Shimmering placeholders while loading.",
+      "web": true
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "group": "feedback",
+      "summary": "Small label or count: default, beta, success, warning, error.",
+      "web": true
+    },
+    {
+      "id": "status",
+      "name": "Status",
+      "group": "feedback",
+      "summary": "Status dot with label (connected, untested, error) and the LIVE badge.",
+      "web": true
+    },
+    {
+      "id": "empty-state",
+      "name": "Empty state",
+      "group": "feedback",
+      "summary": "Nothing here yet, with one action; and not-found.",
+      "web": true
+    },
+    {
+      "id": "notices",
+      "name": "Notices",
+      "group": "feedback",
+      "summary": "Permission explainer, capability notice, dismissible tip.",
+      "web": true
+    },
+    {
+      "id": "recording-pill",
+      "name": "Recording pill",
+      "group": "feedback",
+      "summary": "Floating recording status with timer and live waveform.",
+      "web": true
+    },
+    {
+      "id": "voice-bar",
+      "name": "Voice bar",
+      "group": "feedback",
+      "summary": "Stands in for the composer during a voice conversation (animated mosaic) or dictation (live waveform).",
+      "web": true
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "group": "data-display",
+      "summary": "Outlined panel: flat, raised or glow; header, body, footer; pressable.",
+      "web": true
+    },
+    {
+      "id": "list",
+      "name": "List",
+      "group": "data-display",
+      "summary": "Settings sections and rows, rich list items.",
+      "web": true
+    },
+    {
+      "id": "tiles",
+      "name": "Tiles",
+      "group": "data-display",
+      "summary": "Stat tiles, action tiles, list cards, hero card, icon badge.",
+      "web": true
+    },
+    {
+      "id": "avatar",
+      "name": "Avatar",
+      "group": "data-display",
+      "summary": "Photo or initials in sizes, supporter ring, stacked groups.",
+      "web": true
+    },
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "group": "data-display",
+      "summary": "Collapsible sections, one or many open.",
+      "web": true
+    },
+    {
+      "id": "tree",
+      "name": "Tree",
+      "group": "data-display",
+      "summary": "Expandable hierarchy with optional checkboxes.",
+      "web": true
+    },
+    {
+      "id": "data-table",
+      "name": "Data table",
+      "group": "data-display",
+      "summary": "Sortable, selectable, sticky, dense, resizable columns.",
+      "web": true
+    },
+    {
+      "id": "property-list",
+      "name": "Property list",
+      "group": "data-display",
+      "summary": "Label / value rows for inspectors and details.",
+      "web": true
+    },
+    {
+      "id": "carousel",
+      "name": "Carousel",
+      "group": "data-display",
+      "summary": "Horizontal row of cards that scrolls and snaps; one card and a peek of the next on phones.",
+      "web": true
+    },
+    {
+      "id": "timeline",
+      "name": "Timeline",
+      "group": "data-display",
+      "summary": "Activity feed and journey milestones.",
+      "web": true
+    },
+    {
+      "id": "qr-code",
+      "name": "QR code",
+      "group": "data-display",
+      "summary": "QR code for links and pairing.",
+      "web": true
+    },
+    {
+      "id": "forecast-strip",
+      "name": "Forecast strip",
+      "group": "data-display",
+      "summary": "Horizontal strip of readings with within/outside states.",
+      "web": true
+    },
+    {
+      "id": "media-list",
+      "name": "Media list",
+      "group": "data-display",
+      "summary": "Songs, episodes and films: thumbnail, title, subtitle and meta, pressable rows.",
+      "web": true
+    },
+    {
+      "id": "sparkline",
+      "name": "Sparkline",
+      "group": "charts",
+      "summary": "Trend line with gaps and a last-value dot.",
+      "web": true
+    },
+    {
+      "id": "trend",
+      "name": "Trend",
+      "group": "charts",
+      "summary": "A reading over time: big latest value, sparkline and range.",
+      "web": true
+    },
+    {
+      "id": "bar-chart",
+      "name": "Bar chart",
+      "group": "charts",
+      "summary": "Small column chart with labels.",
+      "web": true
+    },
+    {
+      "id": "month-grid",
+      "name": "Month heat grid",
+      "group": "charts",
+      "summary": "Calendar heat map with legend.",
+      "web": true
+    },
+    {
+      "id": "meter",
+      "name": "Meter",
+      "group": "charts",
+      "summary": "Segmented LED meter: level or bars.",
+      "web": true
+    },
+    {
+      "id": "level-meter",
+      "name": "Level meter",
+      "group": "charts",
+      "summary": "Audio level with peak hold, horizontal or vertical.",
+      "web": true
+    },
+    {
+      "id": "waveform",
+      "name": "Waveform",
+      "group": "charts",
+      "summary": "Audio waveform in five styles with playhead and selection.",
+      "web": true
+    },
+    {
+      "id": "histogram",
+      "name": "Histogram",
+      "group": "charts",
+      "summary": "Luminance / RGB histogram.",
+      "web": true
+    },
+    {
+      "id": "curves-editor",
+      "name": "Curves editor",
+      "group": "charts",
+      "summary": "Tone curve with draggable points over a histogram.",
+      "web": true
+    },
+    {
+      "id": "media-timeline",
+      "name": "Media timeline",
+      "group": "media",
+      "summary": "Tracks, clips, ruler, playhead, snapping and zoom.",
+      "web": true
+    },
+    {
+      "id": "transport",
+      "name": "Transport",
+      "group": "media",
+      "summary": "Play, step, loop and timecode.",
+      "web": true
+    },
+    {
+      "id": "layers-panel",
+      "name": "Layers panel",
+      "group": "media",
+      "summary": "Layers with visibility, lock, thumbnails, groups and reorder.",
+      "web": true
+    },
+    {
+      "id": "zoom-control",
+      "name": "Zoom control",
+      "group": "media",
+      "summary": "− / preset / + zoom with fit.",
+      "web": true
+    },
+    {
+      "id": "transform-fields",
+      "name": "Transform fields",
+      "group": "media",
+      "summary": "X, Y, W, H, angle with a reference-point grid.",
+      "web": true
+    },
+    {
+      "id": "inspector",
+      "name": "Inspector",
+      "group": "media",
+      "summary": "Collapsible parameter sections with sliders and keyframe toggles.",
+      "web": true
+    },
+    {
+      "id": "compare-slider",
+      "name": "Compare slider",
+      "group": "media",
+      "summary": "Before / after split with a draggable divider.",
+      "web": true
+    },
+    {
+      "id": "zoomable-image",
+      "name": "Zoomable image",
+      "group": "media",
+      "summary": "Pinch, wheel, pan and double-tap zoom.",
+      "web": true
+    },
+    {
+      "id": "map",
+      "name": "Map",
+      "group": "media",
+      "summary": "Map controls and compass.",
+      "web": true
+    },
+    {
+      "id": "geo-map",
+      "name": "Geo map",
+      "group": "media",
+      "summary": "Drawn map of places, areas and routes from coordinates; tile background optional.",
+      "web": true
+    },
+    {
+      "id": "screen",
+      "name": "Screen",
+      "group": "layout",
+      "summary": "Page shell with background glow, safe areas and a centred column.",
+      "web": true
+    },
+    {
+      "id": "stack",
+      "name": "Stack & grid",
+      "group": "layout",
+      "summary": "Stack, row and responsive card grid.",
+      "web": true
+    },
+    {
+      "id": "split-pane",
+      "name": "Split pane",
+      "group": "layout",
+      "summary": "Resizable, collapsible panes.",
+      "web": true
+    },
+    {
+      "id": "panel",
+      "name": "Panel",
+      "group": "layout",
+      "summary": "Titled tool panel and settings section, collapsible.",
+      "web": true
+    },
+    {
+      "id": "panel-group",
+      "name": "Panel group",
+      "group": "layout",
+      "summary": "Tabbed dock of panels.",
+      "web": true
+    },
+    {
+      "id": "scroll-panel",
+      "name": "Scroll panel",
+      "group": "layout",
+      "summary": "Fixed-height scrolling region with themed scrollbar.",
+      "web": true
+    },
+    {
+      "id": "toolbar",
+      "name": "Toolbar",
+      "group": "layout",
+      "summary": "Horizontal toolbar and vertical tool rail.",
+      "web": true
+    },
+    {
+      "id": "status-bar",
+      "name": "Status bar",
+      "group": "layout",
+      "summary": "Bottom bar with status items.",
+      "web": true
+    },
+    {
+      "id": "app-shell",
+      "name": "App shell",
+      "group": "layout",
+      "summary": "Title bar with actions and the app frame.",
+      "web": true
+    },
+    {
+      "id": "reorderable-list",
+      "name": "Reorderable list",
+      "group": "layout",
+      "summary": "Drag to reorder.",
+      "web": true
+    },
+    {
+      "id": "swipe-row",
+      "name": "Swipe row",
+      "group": "layout",
+      "summary": "Swipe to reveal actions (accessibility actions on the web).",
+      "web": true
+    },
+    {
+      "id": "onboarding",
+      "name": "Onboarding",
+      "group": "layout",
+      "summary": "Step-by-step intro.",
+      "web": true
+    },
+    {
+      "id": "control-card",
+      "name": "Control card",
+      "group": "home",
+      "summary": "Frame for one controllable thing: icon badge, title, state, a trailing control, media and body slots.",
+      "web": true
+    },
+    {
+      "id": "thermostat",
+      "name": "Thermostat",
+      "group": "home",
+      "summary": "Target temperature or range with − / +, current reading, mode and what it is doing.",
+      "web": true
+    },
+    {
+      "id": "light-control",
+      "name": "Light control",
+      "group": "home",
+      "summary": "On/off, brightness, colour temperature and hue sliders that commit on release.",
+      "web": true
+    },
+    {
+      "id": "position-control",
+      "name": "Position control",
+      "group": "home",
+      "summary": "Open, stop, close and a position slider for blinds, gates, doors and valves.",
+      "web": true
+    },
+    {
+      "id": "lock-control",
+      "name": "Lock control",
+      "group": "home",
+      "summary": "Lock, unlock and unlatch with an inline confirm step and a jammed alert.",
+      "web": true
+    },
+    {
+      "id": "media-player",
+      "name": "Media player",
+      "group": "home",
+      "summary": "Art (a thumbnail, or a full-width banner while playing), title and artist, the transport buttons a player allows, a progress line and volume.",
+      "web": true
+    },
+    {
+      "id": "camera-tile",
+      "name": "Camera tile",
+      "group": "home",
+      "summary": "A still picture that refreshes on a timer, with a name, status line and placeholder.",
+      "web": true
+    },
+    {
+      "id": "weather-now",
+      "name": "Weather now",
+      "group": "home",
+      "summary": "Current condition icon, temperature, words and a detail line; a generic condition vocabulary.",
+      "web": true
+    },
+    {
+      "id": "agenda",
+      "name": "Agenda",
+      "group": "home",
+      "summary": "Upcoming calendar events grouped by day: all-day chips, timed rows with a colour bar.",
+      "web": true
+    },
+    {
+      "id": "fan-control",
+      "name": "Fan control",
+      "group": "home",
+      "summary": "Speed steps or a percentage, oscillation, direction and preset modes for a fan.",
+      "web": true
+    },
+    {
+      "id": "humidity-control",
+      "name": "Humidity control",
+      "group": "home",
+      "summary": "Target humidity with − / +, the current reading, a mode and whether it is running, for humidifiers and dehumidifiers.",
+      "web": true
+    },
+    {
+      "id": "air-quality",
+      "name": "Air quality",
+      "group": "home",
+      "summary": "A reading (CO₂, particles, VOC) on a good-to-poor band with its level word and a short trend.",
+      "web": true
+    },
+    {
+      "id": "schedule-editor",
+      "name": "Schedule editor",
+      "group": "home",
+      "summary": "A week of time blocks, each with a value (a temperature, on or off), drawn as rows you drag to shape.",
+      "web": true
+    },
+    {
+      "id": "energy-flow",
+      "name": "Energy flow",
+      "group": "home",
+      "summary": "Solar, grid, battery and home as nodes with animated flows sized by power, and import or export direction.",
+      "web": true
+    },
+    {
+      "id": "price-strip",
+      "name": "Price strip",
+      "group": "home",
+      "summary": "Hourly energy prices as columns with the current hour marked and the cheapest window highlighted.",
+      "web": true
+    },
+    {
+      "id": "charge-card",
+      "name": "Charge card",
+      "group": "home",
+      "summary": "A battery or vehicle charge: level ring, charging rate, time to full, limit and plug state.",
+      "web": true
+    },
+    {
+      "id": "usage-comparison",
+      "name": "Usage comparison",
+      "group": "home",
+      "summary": "This period against the last (today and yesterday, this week and last) by hour or day, with the difference.",
+      "web": true
+    },
+    {
+      "id": "alarm-panel",
+      "name": "Alarm panel",
+      "group": "home",
+      "summary": "Arm modes, a keypad with masked code entry, arming and entry countdowns, and a triggered state.",
+      "web": true
+    },
+    {
+      "id": "doorbell",
+      "name": "Doorbell",
+      "group": "home",
+      "summary": "A ring that takes over the screen: live picture, who rang and when, and Answer, Talk and Dismiss.",
+      "web": true
+    },
+    {
+      "id": "people-strip",
+      "name": "People strip",
+      "group": "home",
+      "summary": "People and their whereabouts (home, away, a zone) as avatars with how long they have been there.",
+      "web": true
+    },
+    {
+      "id": "openings-summary",
+      "name": "Openings summary",
+      "group": "home",
+      "summary": "Open doors and windows counted and listed, with a warning tone when something should be shut.",
+      "web": true
+    },
+    {
+      "id": "hazard-banner",
+      "name": "Hazard banner",
+      "group": "home",
+      "summary": "An unmissable alert for smoke, carbon monoxide, leaks or heat: where, since when, and what to do.",
+      "web": true
+    },
+    {
+      "id": "connection-status",
+      "name": "Connection status",
+      "group": "home",
+      "summary": "Connected, reconnecting with a retry countdown, and offline states for a screen that talks to a home server.",
+      "web": true
+    },
+    {
+      "id": "device-setup",
+      "name": "Device setup",
+      "group": "home",
+      "summary": "Pairing a screen with a home server: server address, access token entry or a QR code to scan, and a test step.",
+      "web": true
+    },
+    {
+      "id": "room-card",
+      "name": "Room card",
+      "group": "home",
+      "summary": "One room at a glance: temperature and humidity, lights on, open windows, and quick toggles.",
+      "web": true
+    },
+    {
+      "id": "scene-grid",
+      "name": "Scene grid",
+      "group": "home",
+      "summary": "Large tiles that set a scene, with the active scene marked and a brief applied state.",
+      "web": true
+    },
+    {
+      "id": "light-group",
+      "name": "Light group",
+      "group": "home",
+      "summary": "A master switch and brightness for a group of lights that expands to each member.",
+      "web": true
+    },
+    {
+      "id": "floor-plan",
+      "name": "Floor plan",
+      "group": "home",
+      "summary": "A plan of rooms as shapes you can tap, coloured or lit by their state, with markers for devices.",
+      "web": true
+    },
+    {
+      "id": "vacuum-control",
+      "name": "Vacuum control",
+      "group": "home",
+      "summary": "A robot cleaner: status, battery, start, pause, return to dock, and the rooms to clean.",
+      "web": true
+    },
+    {
+      "id": "appliance-cycle",
+      "name": "Appliance cycle",
+      "group": "home",
+      "summary": "A washing machine or dishwasher programme: stage, time left, progress, and a finished state.",
+      "web": true
+    },
+    {
+      "id": "irrigation-zones",
+      "name": "Irrigation zones",
+      "group": "home",
+      "summary": "Watering zones with durations, the zone running now, the next run, and a skip for rain.",
+      "web": true
+    },
+    {
+      "id": "timer",
+      "name": "Timer",
+      "group": "home",
+      "summary": "Named countdowns, several at once: time left, pause, add a minute, cancel, and a finished alert.",
+      "web": true
+    },
+    {
+      "id": "speaker-selector",
+      "name": "Speaker selector",
+      "group": "home",
+      "summary": "Rooms and speakers to send playback to and group together, each with its own volume.",
+      "web": true
+    },
+    {
+      "id": "tv-remote",
+      "name": "TV remote",
+      "group": "home",
+      "summary": "A direction pad with OK, back and home, volume and channel rockers, and input or app buttons.",
+      "web": true
+    },
+    {
+      "id": "up-next",
+      "name": "Up next",
+      "group": "home",
+      "summary": "The queue after the current track or episode: art, titles, play now and remove.",
+      "web": true
+    },
+    {
+      "id": "voice-ring",
+      "name": "Voice ring",
+      "group": "home",
+      "summary": "A large ring for a voice satellite: idle, listening (follows the level), thinking, speaking, muted and error.",
+      "web": true
+    },
+    {
+      "id": "assist-reply",
+      "name": "Assist reply",
+      "group": "home",
+      "summary": "What the voice assistant understood and did, with the things it changed and an undo.",
+      "web": true
+    },
+    {
+      "id": "notification-centre",
+      "name": "Notification centre",
+      "group": "home",
+      "summary": "Notifications with actions, grouped and dismissible, critical ones pinned on top.",
+      "web": true
+    },
+    {
+      "id": "ambient-clock",
+      "name": "Ambient clock",
+      "group": "home",
+      "summary": "A screensaver for wall and bedside screens: large clock, date, next event and weather, dimmed at night.",
+      "web": true
+    },
+    {
+      "id": "state-timeline",
+      "name": "State timeline",
+      "group": "home",
+      "summary": "When things were on, open or present over a day, as bars on a shared time axis.",
+      "web": true
+    },
+    {
+      "id": "activity-feed",
+      "name": "Activity feed",
+      "group": "home",
+      "summary": "What happened in the home, newest first: icon, what changed, by what, and how long ago.",
+      "web": true
+    },
+    {
+      "id": "departures-board",
+      "name": "Departures board",
+      "group": "home",
+      "summary": "Next departures from a stop: line, destination, minutes to go, and delays or cancellations.",
+      "web": true
+    },
+    {
+      "id": "todo-list",
+      "name": "To-do list",
+      "group": "home",
+      "summary": "A shared list (to-do or shopping): add, check off, reorder, and clear the completed items.",
+      "web": true
+    }
+  ]
+}

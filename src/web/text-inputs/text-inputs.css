@@ -1,0 +1,699 @@
+/* text-inputs group. Every value comes from the theme variables: control heights (density), control radius
+   (corners), border width, colours. */
+
+/* Field: label, control, message and counter. */
+.mh-field {
+  display: grid;
+  min-width: 0;
+}
+.mh-field__label {
+  display: block;
+  margin-bottom: var(--mh-space-xs);
+  font-size: var(--mh-text-label);
+  font-weight: 500;
+  color: var(--mh-text);
+}
+.mh-field__required {
+  margin-left: var(--mh-space-xxs);
+  color: var(--mh-danger);
+}
+.mh-field--eyebrow .mh-field__label {
+  font-family: var(--mh-font-mono);
+  font-size: var(--mh-text-caption);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mh-text-muted);
+}
+.mh-field__footer {
+  display: flex;
+  align-items: baseline;
+  gap: var(--mh-space-sm);
+}
+.mh-field__message {
+  margin: var(--mh-space-xs) 0 0;
+  font-size: var(--mh-text-caption);
+  color: var(--mh-text-muted);
+}
+.mh-field__message[hidden] { display: none; }
+.mh-field__count {
+  margin: var(--mh-space-xs) 0 0 auto;
+  font-size: var(--mh-text-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--mh-text-faint);
+  white-space: nowrap;
+}
+.mh-field.is-invalid .mh-field__message { color: var(--mh-danger); }
+.mh-field.is-valid .mh-field__message { color: var(--mh-success); }
+.mh-field.is-disabled .mh-field__label,
+.mh-field.is-disabled .mh-field__footer { opacity: 0.55; }
+
+/* Input box: holds a native input, textarea or select, plus adornments. */
+.mh-input {
+  --_h: var(--mh-control-md);
+  --_px: var(--mh-space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--mh-space-sm);
+  min-width: 0;
+  min-height: var(--_h);
+  padding: 0 var(--_px);
+  border: var(--mh-border-width) solid var(--mh-outline-strong);
+  border-radius: var(--mh-radius-control);
+  background: var(--mh-input);
+  color: var(--mh-text);
+  font-size: var(--mh-text-body);
+  cursor: text;
+  transition:
+    border-color var(--mh-duration-fast) var(--mh-ease),
+    background-color var(--mh-duration-fast) var(--mh-ease);
+}
+.mh-input--sm { --_h: var(--mh-control-sm); --_px: var(--mh-space-sm); font-size: var(--mh-text-label); }
+.mh-input--lg { --_h: var(--mh-control-lg); --_px: var(--mh-space-lg); }
+.mh-input:hover:not(.is-disabled) { border-color: color-mix(in srgb, var(--mh-text) 35%, var(--mh-outline)); }
+.mh-input:focus-within { border-color: var(--mh-accent); }
+/* The ring goes round the box, not the bare input inside it. */
+.mh-input .mh-input__control:focus-visible { outline: none; }
+.mh-input:has(.mh-input__control:focus-visible) {
+  outline: var(--mh-focus-width) solid var(--mh-focus);
+  outline-offset: 2px;
+}
+.mh-input:has(.mh-input__control[aria-invalid='true']) { border-color: var(--mh-danger); }
+.mh-input.is-disabled { opacity: 0.5; cursor: not-allowed; }
+[data-mh-high-contrast] .mh-input { border-color: var(--mh-text-muted); }
+[data-mh-high-contrast] .mh-input:focus-within { border-color: var(--mh-focus); }
+
+.mh-input__control {
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1.45;
+}
+.mh-input__control::placeholder { color: var(--mh-text-faint); opacity: 1; }
+.mh-input__control:disabled { cursor: not-allowed; }
+
+.mh-input__adornment {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  color: var(--mh-text-muted);
+  font-size: var(--mh-text-label);
+  white-space: nowrap;
+  user-select: none;
+}
+.mh-input__adornment .mh-icon { width: 1.4em; height: 1.4em; }
+
+/* Text area: grows with its text; pill corners would clip it, so it caps at the medium radius. */
+.mh-input--multiline {
+  align-items: stretch;
+  padding: var(--mh-space-sm) var(--_px);
+  border-radius: min(var(--mh-radius-control), var(--mh-radius-md));
+}
+.mh-input--multiline .mh-input__control {
+  min-height: calc(var(--_h) - 2 * var(--mh-space-sm) - 2 * var(--mh-border-width));
+  resize: none;
+  overflow-y: hidden;
+}
+
+/* Search field. */
+.mh-search { padding-right: var(--mh-space-xs); }
+.mh-search .mh-input__control::-webkit-search-cancel-button,
+.mh-search .mh-input__control::-webkit-search-decoration { appearance: none; }
+.mh-search__clear[hidden] { display: none; }
+.mh-search .mh-search__clear { --_s: calc(var(--_h) - 2 * var(--mh-space-xs) - 2 * var(--mh-border-width)); }
+
+/* Select: a styled native select; it fills the box so the whole box opens it. */
+.mh-select {
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+}
+.mh-select .mh-input__control {
+  appearance: none;
+  padding: 0 calc(var(--_px) + 1.4em + var(--mh-space-xs)) 0 var(--_px);
+  border-radius: inherit;
+  cursor: inherit;
+}
+.mh-select .mh-input__control:invalid,
+.mh-select .mh-input__control:has(option[value='']:checked) { color: var(--mh-text-faint); }
+.mh-select option,
+.mh-select optgroup {
+  background: var(--mh-surface-solid);
+  color: var(--mh-text);
+}
+.mh-select__chevron {
+  position: absolute;
+  right: var(--_px);
+  display: inline-flex;
+  color: var(--mh-text-muted);
+  pointer-events: none;
+}
+.mh-select__chevron .mh-icon { width: 1.4em; height: 1.4em; }
+
+/* Composer: a message input for chat and assistant apps. The field is one control-lg tall on a single line (the
+   voice bar matches it), with control-md buttons in the slots; it caps its radius at half that height, so pill
+   corners stay round on one line and soften as the text grows. */
+.mh-composer {
+  display: grid;
+  /* One column that never grows past the composer, whatever the mode chip or suggestions hold. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--mh-space-sm);
+  min-width: 0;
+}
+.mh-composer__field {
+  --_pad: max(0px, calc((var(--mh-control-lg) - var(--mh-control-md)) / 2 - var(--mh-border-width)));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--mh-space-xxs);
+  min-width: 0;
+  min-height: var(--mh-control-lg);
+  padding: var(--_pad);
+  border: var(--mh-border-width) solid var(--mh-outline-strong);
+  border-radius: min(var(--mh-radius-control), calc(var(--mh-control-lg) / 2));
+  background: var(--mh-input);
+  color: var(--mh-text);
+  font-size: var(--mh-text-body);
+  cursor: text;
+  transition: border-color var(--mh-duration-fast) var(--mh-ease);
+}
+.mh-composer__field:hover { border-color: color-mix(in srgb, var(--mh-text) 35%, var(--mh-outline)); }
+.mh-composer__field:focus-within { border-color: var(--mh-accent); }
+/* The ring goes round the whole field, not the bare text area inside it. */
+.mh-composer__field .mh-composer__input:focus,
+.mh-composer__field .mh-composer__input:focus-visible { outline: none; }
+.mh-composer__field:has(.mh-composer__input:focus-visible) {
+  outline: var(--mh-focus-width) solid var(--mh-focus);
+  outline-offset: 2px;
+}
+[data-mh-high-contrast] .mh-composer__field { border-color: var(--mh-text-muted); }
+[data-mh-high-contrast] .mh-composer__field:focus-within { border-color: var(--mh-focus); }
+.mh-composer.is-disabled .mh-composer__field { border-color: var(--mh-outline-strong); opacity: 0.5; cursor: not-allowed; }
+
+.mh-composer__row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--mh-space-xxs);
+  min-width: 0;
+}
+.mh-composer__leading,
+.mh-composer__trailing {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--mh-space-xxs);
+}
+.mh-composer__input {
+  flex: 1;
+  min-width: 0;
+  /* One line sits centred on the buttons; more lines grow the field. */
+  margin: calc((var(--mh-control-md) - 1.45em) / 2) 0;
+  padding: 0 var(--mh-space-sm);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1.45;
+  resize: none;
+  overflow-y: hidden;
+}
+.mh-composer__input::placeholder { color: var(--mh-text-faint); opacity: 1; }
+.mh-composer__input:disabled { cursor: not-allowed; }
+
+/* Mode chip: inside the field, above the text. */
+.mh-composer__mode {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+  gap: var(--mh-space-xs);
+  max-width: calc(100% - 2 * var(--mh-space-xs));
+  min-height: var(--mh-control-sm);
+  margin: 0 var(--mh-space-xs);
+  padding-left: var(--mh-space-sm);
+  border-radius: min(var(--mh-radius-control), calc(var(--mh-control-sm) / 2));
+  background: var(--mh-accent-soft);
+  font-size: var(--mh-text-label);
+  cursor: default;
+}
+.mh-composer__mode-icon { flex: none; width: 1.3em; height: 1.3em; color: var(--mh-accent); }
+[data-mh-mode='light'] .mh-composer__mode-icon { color: var(--mh-accent-dark); }
+.mh-composer__mode-text {
+  display: flex;
+  align-items: baseline;
+  gap: var(--mh-space-xs);
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.mh-composer__mode-label { flex: none; font-weight: 600; }
+.mh-composer__mode-hint { min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--mh-text-muted); }
+.mh-composer__mode-clear {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--mh-control-sm);
+  height: var(--mh-control-sm);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: var(--mh-text-muted);
+  cursor: pointer;
+}
+.mh-composer__mode-clear .mh-icon { width: 1.3em; height: 1.3em; }
+.mh-composer__mode-clear:hover { background: var(--mh-hover); color: var(--mh-text); }
+
+/* Suggestions: a row of quick replies that scrolls sideways; padded so focus rings aren't clipped. */
+.mh-composer__suggestions {
+  --_ring: calc(var(--mh-focus-width) + 2px);
+  display: flex;
+  gap: var(--mh-space-sm);
+  margin: calc(var(--_ring) * -1);
+  padding: var(--_ring);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.mh-composer__suggestions::-webkit-scrollbar { display: none; }
+.mh-composer__suggestion {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  min-height: var(--mh-control-md);
+  margin: 0;
+  padding: 0 var(--mh-space-md);
+  border: var(--mh-border-width) solid var(--mh-outline-strong);
+  border-radius: var(--mh-radius-control);
+  background: var(--mh-surface-raised);
+  color: var(--mh-text);
+  font: inherit;
+  font-size: var(--mh-text-label);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--mh-duration-fast) var(--mh-ease), transform var(--mh-duration-fast);
+}
+.mh-composer__suggestion:hover:not(:disabled) { background: var(--mh-surface-pressed); }
+.mh-composer__suggestion:active:not(:disabled) { transform: scale(0.97); }
+.mh-composer__suggestion:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Why the composer is disabled, with an optional retry. */
+.mh-composer__notice {
+  display: flex;
+  align-items: center;
+  gap: var(--mh-space-sm);
+  min-height: var(--mh-control-sm);
+  padding: 0 var(--mh-space-sm);
+}
+.mh-composer__notice[hidden] { display: none; }
+.mh-composer__reason {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--mh-text-label);
+  color: var(--mh-text-muted);
+}
+
+/* Buttons inside an input box (reveal, copy, clear): a small icon button that fits inside the box. */
+.mh-input .mh-input__action { --_s: calc(var(--_h) - 2 * var(--mh-space-xs) - 2 * var(--mh-border-width)); flex: none; }
+.mh-input__action[hidden] { display: none; }
+
+/* Number input: − value + with a unit that scrubs. The buttons sit inset like the stepper's. */
+.mh-number-input {
+  --_inset: var(--mh-space-xxs);
+  gap: var(--mh-space-xs);
+  padding: 0 var(--_inset);
+}
+.mh-number-input__step {
+  --_s: calc(var(--_h) - 2 * var(--_inset) - 2 * var(--mh-border-width));
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--_s);
+  height: var(--_s);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: max(0px, calc(var(--mh-radius-control) - var(--_inset)));
+  background: var(--mh-surface-raised);
+  color: var(--mh-text);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--mh-duration-fast),
+    transform var(--mh-duration-fast);
+}
+.mh-number-input__step .mh-icon { width: 55%; height: 55%; }
+.mh-number-input__step:hover:not(:disabled) { background: var(--mh-surface-pressed); }
+.mh-number-input__step:active:not(:disabled) { transform: scale(0.92); }
+.mh-number-input__step:disabled { opacity: 0.35; cursor: not-allowed; }
+.mh-number-input .mh-input__control {
+  min-width: 3ch;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.mh-number-input__unit { margin-left: calc(var(--mh-space-xs) * -1); }
+.mh-number-input__scrub {
+  align-self: stretch;
+  padding: 0 var(--mh-space-xs);
+  border-radius: var(--mh-radius-sm);
+  cursor: ew-resize;
+  touch-action: none;
+  transition: background-color var(--mh-duration-fast), color var(--mh-duration-fast);
+}
+.mh-number-input__scrub:hover,
+.mh-number-input__scrub.is-scrubbing { background: var(--mh-hover); color: var(--mh-text); }
+.mh-number-input__scrub.is-scrubbing { color: var(--mh-accent); }
+[data-mh-mode='light'] .mh-number-input__scrub.is-scrubbing { color: var(--mh-accent-dark); }
+.mh-number-input.is-disabled .mh-number-input__scrub { cursor: not-allowed; background: none; }
+
+/* Secret field: password or key with reveal and copy. Keys are mono so similar characters stay apart. */
+.mh-secret { padding-right: var(--mh-space-xs); gap: var(--mh-space-xxs); }
+.mh-secret .mh-input__control { margin-right: var(--mh-space-xs); }
+.mh-secret--key .mh-input__control { font-family: var(--mh-font-mono); font-size: 0.94em; }
+.mh-secret__copy.is-copied,
+.mh-secret__copy.is-copied:hover { color: var(--mh-success); }
+
+/* Hotkey field: a button that shows keycaps, and records while `.is-recording`. */
+.mh-hotkey { padding-right: var(--mh-space-xs); cursor: pointer; }
+.mh-hotkey__control {
+  display: flex;
+  align-items: center;
+  min-height: calc(var(--_h) - 2 * var(--mh-border-width));
+  text-align: start;
+  cursor: inherit;
+}
+.mh-hotkey__keys { display: inline-flex; align-items: center; gap: var(--mh-space-sm); min-width: 0; }
+.mh-hotkey__caps { display: inline-flex; flex-wrap: wrap; gap: var(--mh-space-xxs); }
+.mh-hotkey__cap {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2em;
+  padding: 0.1em 0.45em;
+  border: var(--mh-border-width) solid var(--mh-outline-strong);
+  border-bottom-width: calc(var(--mh-border-width) * 2 + 1px);
+  border-radius: min(var(--mh-radius-sm), var(--mh-radius-control));
+  background: var(--mh-surface-raised);
+  color: var(--mh-text);
+  font-family: var(--mh-font-mono);
+  font-size: var(--mh-text-label);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.mh-hotkey__text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mh-hotkey__text--empty { color: var(--mh-text-faint); }
+.mh-hotkey.is-recording { border-color: var(--mh-accent); background: color-mix(in srgb, var(--mh-accent-soft) 60%, var(--mh-input)); }
+.mh-hotkey.is-recording .mh-hotkey__text { color: var(--mh-text-muted); }
+.mh-hotkey.is-recording .mh-hotkey__keys::before {
+  content: '';
+  flex: none;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: var(--mh-radius-full);
+  background: var(--mh-danger);
+  animation: mh-hotkey-recording 1.2s var(--mh-ease) infinite;
+}
+@keyframes mh-hotkey-recording {
+  50% { opacity: 0.3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mh-hotkey.is-recording .mh-hotkey__keys::before { animation: none; }
+}
+.mh-hotkey.is-disabled { cursor: not-allowed; }
+
+/* Popup lists of the command bar and multi-select: a solid panel under (or above) the box. */
+.mh-command-bar__list,
+.mh-multi-select__popup {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + var(--mh-space-xs));
+  right: 0;
+  left: 0;
+  max-height: min(50vh, 320px);
+  margin: 0;
+  padding: var(--mh-space-xs);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: var(--mh-border-width) solid var(--mh-panel-outline);
+  border-radius: var(--mh-radius-md);
+  background: var(--mh-surface-solid);
+  color: var(--mh-text);
+  box-shadow: var(--mh-shadow-3);
+  list-style: none;
+  animation: mh-text-inputs-popup-in var(--mh-duration-normal) var(--mh-ease-out) both;
+}
+.mh-command-bar__list[hidden],
+.mh-multi-select__popup[hidden] { display: none; }
+[data-mh-high-contrast] .mh-command-bar__list,
+[data-mh-high-contrast] .mh-multi-select__popup { border-color: var(--mh-outline); }
+@keyframes mh-text-inputs-popup-in {
+  from { opacity: 0; transform: translateY(calc(var(--mh-space-xs) * -1)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mh-command-bar__list,
+  .mh-multi-select__popup { animation: none; }
+}
+
+/* Command bar: a mono prompt. */
+.mh-command-bar { position: relative; display: grid; min-width: 0; }
+.mh-command-bar__box { font-family: var(--mh-font-mono); font-size: 0.94em; }
+.mh-command-bar__box.mh-input--sm { font-size: var(--mh-text-label); }
+.mh-command-bar__prompt { color: var(--mh-accent); font-size: inherit; font-weight: 700; }
+[data-mh-mode='light'] .mh-command-bar__prompt { color: var(--mh-accent-dark); }
+.mh-command-bar--up .mh-command-bar__list { top: auto; bottom: calc(100% + var(--mh-space-xs)); }
+.mh-command-bar__option {
+  display: flex;
+  align-items: baseline;
+  gap: var(--mh-space-md);
+  min-height: var(--mh-control-sm);
+  padding: var(--mh-space-xs) var(--mh-space-sm);
+  border-radius: var(--mh-radius-sm);
+  cursor: pointer;
+}
+.mh-command-bar__option:hover { background: var(--mh-hover); }
+.mh-command-bar__option.is-active { background: var(--mh-accent-soft); box-shadow: inset var(--mh-space-xxs) 0 0 var(--mh-accent); }
+.mh-command-bar__value { flex: none; font-family: var(--mh-font-mono); font-size: var(--mh-text-label); white-space: nowrap; }
+.mh-command-bar__description {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--mh-text-muted);
+  font-size: var(--mh-text-caption);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Duration field: free text with a live reading and optional quick picks. */
+.mh-duration { display: grid; gap: var(--mh-space-sm); min-width: 0; }
+.mh-duration__preview {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--mh-text-faint);
+  font-size: var(--mh-text-caption);
+  text-overflow: ellipsis;
+}
+.mh-duration__preview:empty { display: none; }
+.mh-duration__presets { display: flex; flex-wrap: wrap; gap: var(--mh-space-xs); }
+.mh-duration__preset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--mh-control-sm);
+  min-height: var(--mh-control-sm);
+  margin: 0;
+  padding: 0 var(--mh-space-md);
+  border: var(--mh-border-width) solid var(--mh-outline-strong);
+  border-radius: var(--mh-radius-control);
+  background: var(--mh-surface-raised);
+  color: var(--mh-text);
+  font: inherit;
+  font-size: var(--mh-text-label);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--mh-duration-fast), transform var(--mh-duration-fast);
+}
+.mh-duration__preset:hover:not(:disabled) { background: var(--mh-surface-pressed); }
+.mh-duration__preset:active:not(:disabled) { transform: scale(0.97); }
+.mh-duration__preset[aria-pressed='true'] { border-color: var(--mh-accent); background: var(--mh-accent-soft); }
+.mh-duration__preset:disabled { opacity: 0.45; cursor: not-allowed; }
+[data-mh-high-contrast] .mh-duration__preset { border-color: var(--mh-text-muted); }
+[data-mh-high-contrast] .mh-duration__preset[aria-pressed='true'] { border-color: var(--mh-accent); border-width: max(var(--mh-border-width), 2px); }
+
+/* Option checks of the multi-select and transfer list: drawn like the checkbox. */
+.mh-multi-select__check,
+.mh-transfer__check {
+  --_box: calc(var(--mh-control-sm) * 0.5);
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--_box);
+  height: var(--_box);
+  border: max(var(--mh-border-width), 2px) solid var(--mh-text-muted);
+  border-radius: min(var(--mh-radius-sm), calc(var(--_box) / 4));
+  background: var(--mh-input);
+  color: var(--mh-on-accent);
+  transition:
+    background-color var(--mh-duration-fast) var(--mh-ease),
+    border-color var(--mh-duration-fast) var(--mh-ease);
+}
+.mh-multi-select__check .mh-icon,
+.mh-transfer__check .mh-icon { width: 90%; height: 90%; opacity: 0; transition: opacity var(--mh-duration-fast); }
+[aria-selected='true'] > .mh-multi-select__check,
+[aria-selected='true'] > .mh-transfer__check { border-color: var(--mh-accent); background: var(--mh-accent); }
+[aria-selected='true'] > .mh-multi-select__check .mh-icon,
+[aria-selected='true'] > .mh-transfer__check .mh-icon { opacity: 1; }
+
+/* Option rows of the multi-select and transfer list. */
+.mh-multi-select__option,
+.mh-transfer__option {
+  display: flex;
+  align-items: center;
+  gap: var(--mh-space-sm);
+  min-height: var(--mh-control-sm);
+  padding: var(--mh-space-xs) var(--mh-space-sm);
+  border-radius: var(--mh-radius-sm);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.mh-multi-select__option:hover:not([aria-disabled='true']),
+.mh-transfer__option:hover:not([aria-disabled='true']) { background: var(--mh-hover); }
+.mh-multi-select__option[aria-disabled='true'],
+.mh-transfer__option[aria-disabled='true'] { opacity: 0.45; cursor: not-allowed; }
+.mh-multi-select__icon,
+.mh-transfer__icon { flex: none; width: 1.3em; height: 1.3em; color: var(--mh-text-muted); }
+.mh-multi-select__text,
+.mh-transfer__text { display: grid; flex: 1; min-width: 0; }
+.mh-multi-select__label,
+.mh-transfer__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mh-multi-select__description,
+.mh-transfer__description {
+  overflow: hidden;
+  color: var(--mh-text-muted);
+  font-size: var(--mh-text-caption);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Multi-select: chips and a filter input in a box that grows a row at a time. */
+.mh-multi-select { position: relative; display: grid; min-width: 0; }
+.mh-multi-select__box {
+  --_inset: max(var(--mh-space-xxs), calc((var(--_h) - var(--mh-control-sm)) / 2 - var(--mh-border-width)));
+  flex-wrap: wrap;
+  gap: var(--mh-space-xs);
+  padding: var(--_inset) var(--_px) var(--_inset) var(--_inset);
+  border-radius: min(var(--mh-radius-control), calc(var(--_h) / 2));
+  cursor: pointer;
+}
+.mh-multi-select__box:not(:has(.mh-chip)) { padding-left: var(--_px); }
+.mh-multi-select__chips { display: contents; }
+.mh-multi-select__input {
+  flex: 1 1 6em;
+  align-self: center;
+  min-width: 4em;
+  min-height: var(--mh-control-sm);
+}
+.mh-multi-select__chevron {
+  display: inline-flex;
+  flex: none;
+  margin-left: auto;
+  color: var(--mh-text-muted);
+  transition: transform var(--mh-duration-fast) var(--mh-ease);
+}
+.mh-multi-select__chevron .mh-icon { width: 1.4em; height: 1.4em; }
+.mh-multi-select.is-open .mh-multi-select__chevron { transform: rotate(180deg); }
+.mh-multi-select__option.is-active { background: var(--mh-hover); box-shadow: inset var(--mh-space-xxs) 0 0 var(--mh-accent); }
+.mh-multi-select__group + .mh-multi-select__group,
+.mh-multi-select__option + .mh-multi-select__group { margin-top: var(--mh-space-xs); padding-top: var(--mh-space-xs); border-top: 1px solid var(--mh-divider); }
+.mh-multi-select__group-label {
+  padding: var(--mh-space-xs) var(--mh-space-sm);
+  color: var(--mh-text-muted);
+  font-family: var(--mh-font-mono);
+  font-size: var(--mh-text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.mh-multi-select__empty { margin: 0; padding: var(--mh-space-sm); color: var(--mh-text-muted); font-size: var(--mh-text-label); }
+.mh-multi-select__empty[hidden] { display: none; }
+
+/* Transfer list: two lists with move buttons between; stacked when the container is narrow. */
+.mh-transfer {
+  container-type: inline-size;
+  min-width: 0;
+}
+.mh-transfer__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: var(--mh-space-md);
+}
+.mh-transfer__panel {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  min-width: 0;
+  height: calc(var(--mh-control-sm) * 7.5);
+  overflow: hidden;
+  border: var(--mh-border-width) solid var(--mh-outline-strong);
+  border-radius: min(var(--mh-radius-control), var(--mh-radius-lg));
+  background: var(--mh-input);
+}
+[data-mh-high-contrast] .mh-transfer__panel { border-color: var(--mh-text-muted); }
+.mh-transfer__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--mh-space-sm);
+  padding: var(--mh-space-sm) var(--mh-space-md);
+  border-bottom: 1px solid var(--mh-divider);
+}
+.mh-transfer__title { font-size: var(--mh-text-label); font-weight: 600; }
+.mh-transfer__count { color: var(--mh-text-muted); font-size: var(--mh-text-caption); font-variant-numeric: tabular-nums; }
+.mh-transfer__filter { padding: var(--mh-space-xs) var(--mh-space-xs) 0; }
+.mh-transfer__list,
+.mh-transfer__empty { grid-row: 3; grid-column: 1; }
+.mh-transfer__list {
+  min-height: 0;
+  padding: var(--mh-space-xs);
+  overflow: auto;
+  overscroll-behavior: contain;
+  outline: none;
+}
+.mh-transfer__list:focus-visible .mh-transfer__option.is-active {
+  outline: var(--mh-focus-width) solid var(--mh-focus);
+  outline-offset: calc(var(--mh-focus-width) * -1);
+}
+.mh-transfer__list .mh-transfer__option.is-active { background: var(--mh-hover); }
+.mh-transfer__panel:has(.mh-transfer__list:focus-visible) { border-color: var(--mh-accent); }
+.mh-transfer__empty {
+  align-self: center;
+  margin: 0;
+  padding: var(--mh-space-md);
+  color: var(--mh-text-faint);
+  font-size: var(--mh-text-label);
+  text-align: center;
+  pointer-events: none;
+}
+.mh-transfer__empty[hidden] { display: none; }
+.mh-transfer__actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--mh-space-xs);
+}
+.mh-transfer.is-disabled .mh-transfer__panel { opacity: 0.5; }
+.mh-transfer.is-disabled .mh-transfer__option { cursor: not-allowed; }
+@container (max-width: 480px) {
+  .mh-transfer__layout { grid-template-columns: minmax(0, 1fr); }
+  .mh-transfer__actions { flex-direction: row; }
+  .mh-transfer__move .mh-icon { transform: rotate(90deg); }
+}

@@ -1,0 +1,389 @@
+/* charts group. Every value comes from the theme variables. */
+
+/* Sparkline --------------------------------------------------------------------------------------------------- */
+
+.mh-sparkline {
+  --_c: var(--mh-accent);
+  --_h: var(--mh-control-md);
+  --_w: 2px;
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: var(--mh-control-lg);
+  height: var(--_h);
+}
+.mh-sparkline--sm { --_h: var(--mh-control-sm); --_w: 1.5px; }
+.mh-sparkline--lg { --_h: calc(var(--mh-control-lg) * 1.5); --_w: 2.5px; }
+[data-mh-high-contrast] .mh-sparkline { --_w: 3px; }
+.mh-sparkline--series-1 { --_c: var(--mh-series-1); }
+.mh-sparkline--series-2 { --_c: var(--mh-series-2); }
+.mh-sparkline--series-3 { --_c: var(--mh-series-3); }
+.mh-sparkline--series-4 { --_c: var(--mh-series-4); }
+.mh-sparkline--series-5 { --_c: var(--mh-series-5); }
+.mh-sparkline--series-6 { --_c: var(--mh-series-6); }
+
+.mh-sparkline__svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.mh-sparkline__line {
+  fill: none;
+  stroke: var(--_c);
+  stroke-width: var(--_w);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+[data-mh-corners='square'] .mh-sparkline__line { stroke-linecap: square; stroke-linejoin: miter; }
+.mh-sparkline__area { fill: color-mix(in srgb, var(--_c) 18%, transparent); stroke: none; }
+.mh-sparkline__dot {
+  position: absolute;
+  width: calc(var(--_w) * 3.5);
+  height: calc(var(--_w) * 3.5);
+  border-radius: var(--mh-radius-full);
+  background: var(--_c);
+  outline: var(--_w) solid var(--mh-surface-solid);
+  transform: translate(-50%, -50%);
+}
+
+/* Trend ------------------------------------------------------------------------------------------------------- */
+
+/* Text and chart side by side in the same proportions in every trend, so a stack of them lines up; they wrap to
+   a column when the container is too narrow for both. */
+.mh-trend { display: flex; flex-wrap: wrap; align-items: center; gap: var(--mh-space-xs) var(--mh-space-md); min-width: 0; }
+.mh-trend + .mh-trend { margin-top: var(--mh-space-sm); padding-top: var(--mh-space-sm); border-top: 1px solid var(--mh-divider); }
+.mh-trend__text { display: grid; flex: 4 1 calc(var(--mh-control-lg) * 2); gap: var(--mh-space-xxs); min-width: 0; }
+.mh-trend__chart { flex: 5 1 calc(var(--mh-control-lg) * 2.5); min-width: 0; }
+.mh-trend__chart > .mh-sparkline { min-width: 0; }
+.mh-trend__name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--mh-text-label); color: var(--mh-text-muted); }
+.mh-trend__reading { display: flex; align-items: baseline; gap: var(--mh-space-xxs); min-width: 0; line-height: 1.1; color: var(--mh-heading); }
+.mh-trend__value { font-size: var(--mh-text-headline); font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.mh-trend__unit { font-size: var(--mh-text-body); color: var(--mh-text-muted); }
+.mh-trend__range { overflow-wrap: anywhere; font-size: var(--mh-text-caption); font-variant-numeric: tabular-nums; color: var(--mh-text-muted); }
+
+/* Shared: series colours of the other charts ------------------------------------------------------------------ */
+
+.mh-bar-chart, .mh-month-grid, .mh-meter, .mh-waveform { --_c: var(--mh-accent); }
+.mh-bar-chart--series-1, .mh-month-grid--series-1, .mh-meter--series-1, .mh-waveform--series-1 { --_c: var(--mh-series-1); }
+.mh-bar-chart--series-2, .mh-month-grid--series-2, .mh-meter--series-2, .mh-waveform--series-2 { --_c: var(--mh-series-2); }
+.mh-bar-chart--series-3, .mh-month-grid--series-3, .mh-meter--series-3, .mh-waveform--series-3 { --_c: var(--mh-series-3); }
+.mh-bar-chart--series-4, .mh-month-grid--series-4, .mh-meter--series-4, .mh-waveform--series-4 { --_c: var(--mh-series-4); }
+.mh-bar-chart--series-5, .mh-month-grid--series-5, .mh-meter--series-5, .mh-waveform--series-5 { --_c: var(--mh-series-5); }
+.mh-bar-chart--series-6, .mh-month-grid--series-6, .mh-meter--series-6, .mh-waveform--series-6 { --_c: var(--mh-series-6); }
+
+/* Bar chart --------------------------------------------------------------------------------------------------- */
+
+/* Axis gutter (as wide as the longest tick label) beside the plot, the labels row under it. */
+.mh-bar-chart {
+  --_h: calc(var(--mh-control-lg) * 2.5);
+  --_gutter: 0;
+  display: grid;
+  grid-template-columns: calc(var(--_gutter) * 1ch + var(--mh-space-xs)) minmax(0, 1fr);
+  grid-template-rows: var(--_h) auto;
+  width: 100%;
+  min-width: calc(var(--mh-control-lg) * 2);
+  font-size: var(--mh-text-caption);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  color: var(--mh-text-muted);
+}
+.mh-bar-chart--no-axis { grid-template-columns: minmax(0, 1fr); }
+.mh-bar-chart--sm { --_h: calc(var(--mh-control-lg) * 1.5); }
+.mh-bar-chart--lg { --_h: calc(var(--mh-control-lg) * 4); }
+.mh-bar-chart--values { padding-top: calc(1.2em + var(--mh-space-xxs)); }
+.mh-bar-chart__axis { position: relative; grid-column: 1; grid-row: 1; }
+.mh-bar-chart__tick { position: absolute; right: var(--mh-space-xs); line-height: 1; white-space: nowrap; color: var(--mh-text-faint); transform: translateY(50%); }
+.mh-bar-chart__plot { position: relative; grid-column: -2; grid-row: 1; min-width: 0; }
+.mh-bar-chart__svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: visible; }
+.mh-bar-chart__grid { fill: none; stroke: var(--mh-divider); stroke-width: 1px; }
+.mh-bar-chart__zero { fill: none; stroke: var(--mh-outline-strong); stroke-width: 1px; }
+.mh-bar-chart__bar { fill: var(--_c); transition: fill-opacity var(--mh-duration-fast) var(--mh-ease); }
+.mh-bar-chart__bar--series-1 { fill: var(--mh-series-1); }
+.mh-bar-chart__bar--series-2 { fill: var(--mh-series-2); }
+.mh-bar-chart__bar--series-3 { fill: var(--mh-series-3); }
+.mh-bar-chart__bar--series-4 { fill: var(--mh-series-4); }
+.mh-bar-chart__bar--series-5 { fill: var(--mh-series-5); }
+.mh-bar-chart__bar--series-6 { fill: var(--mh-series-6); }
+.mh-bar-chart__bar--accent { fill: var(--mh-accent); }
+.mh-bar-chart--highlight .mh-bar-chart__bar:not(.is-highlight) { fill-opacity: 0.45; }
+[data-mh-high-contrast] .mh-bar-chart--highlight .mh-bar-chart__bar:not(.is-highlight) { fill-opacity: 0.7; }
+.mh-bar-chart__values { position: absolute; inset: 0; pointer-events: none; }
+.mh-bar-chart__value { position: absolute; line-height: 1; white-space: nowrap; color: var(--mh-text); transform: translate(-50%, calc(var(--mh-space-xxs) * -1)); }
+.mh-bar-chart__value.is-negative { transform: translate(-50%, var(--mh-space-xxs)); }
+.mh-bar-chart__value.is-highlight { font-weight: 600; color: var(--mh-heading); }
+.mh-bar-chart__labels { display: flex; grid-column: -2; grid-row: 2; min-width: 0; padding-top: var(--mh-space-xxs); }
+/* Centred and allowed to spill into neighbouring slots, so a label wider than its column stays centred under it. */
+.mh-bar-chart__label { display: flex; flex: 1 1 0; justify-content: center; min-width: 0; white-space: nowrap; }
+.mh-bar-chart__label.is-hidden { visibility: hidden; }
+.mh-bar-chart__label.is-highlight { font-weight: 600; color: var(--mh-heading); }
+.mh-bar-chart__label.is-empty { color: var(--mh-text-faint); }
+
+/* Month heat grid --------------------------------------------------------------------------------------------- */
+
+.mh-month-grid {
+  --_gap: var(--mh-space-xxs);
+  display: grid;
+  gap: var(--mh-space-xs);
+  width: 100%;
+  max-width: calc(var(--mh-control-lg) * 9);
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+.mh-month-grid--sm { --_gap: max(1px, calc(var(--mh-space-xxs) / 2)); max-width: calc(var(--mh-control-lg) * 6); }
+.mh-month-grid--lg { --_gap: var(--mh-space-xs); max-width: calc(var(--mh-control-lg) * 14); }
+.mh-month-grid__table { width: calc(100% + var(--_gap) * 2); margin: 0 calc(var(--_gap) * -1); border-collapse: separate; border-spacing: var(--_gap); table-layout: fixed; }
+.mh-month-grid__caption { padding: 0 var(--_gap) var(--mh-space-xxs); text-align: start; font-size: var(--mh-text-label); font-weight: 600; color: var(--mh-heading); }
+.mh-month-grid__weekday { padding: 0; font-size: var(--mh-text-caption); font-weight: 500; text-align: center; color: var(--mh-text-faint); }
+.mh-month-grid__day, .mh-month-grid__pad { padding: 0; }
+/* The cell's strength --_t (0–1) mixes the series colour into the surface. */
+.mh-month-grid__num {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: var(--mh-radius-sm);
+  background: color-mix(in srgb, var(--_c) calc(var(--_t, 0) * 90% + 8%), var(--mh-surface-solid));
+  font-size: var(--mh-text-caption);
+  line-height: 1;
+  color: var(--mh-text);
+}
+.mh-month-grid--sm .mh-month-grid__num { font-size: 0; }
+.mh-month-grid__day.is-strong .mh-month-grid__num { font-weight: 600; color: var(--mh-surface-solid); }
+.mh-month-grid__day.is-empty .mh-month-grid__num { background: transparent; box-shadow: inset 0 0 0 1px var(--mh-divider); color: var(--mh-text-faint); }
+.mh-month-grid__day.is-today .mh-month-grid__num { outline: var(--mh-focus-width) solid var(--mh-heading); outline-offset: 1px; }
+.mh-month-grid__legend { display: flex; align-items: center; justify-content: flex-end; gap: var(--mh-space-xxs); font-size: var(--mh-text-caption); font-variant-numeric: tabular-nums; color: var(--mh-text-muted); }
+.mh-month-grid__end:first-child { margin-inline-end: var(--mh-space-xxs); }
+.mh-month-grid__end:last-child { margin-inline-start: var(--mh-space-xxs); }
+.mh-month-grid__swatch {
+  width: calc(var(--mh-control-sm) / 2.5);
+  aspect-ratio: 1;
+  border-radius: calc(var(--mh-radius-sm) / 2);
+  background: color-mix(in srgb, var(--_c) calc(var(--_t, 0) * 90% + 8%), var(--mh-surface-solid));
+}
+[data-mh-high-contrast] .mh-month-grid__num, [data-mh-high-contrast] .mh-month-grid__swatch { box-shadow: inset 0 0 0 1px var(--mh-outline); }
+
+/* Meter ------------------------------------------------------------------------------------------------------- */
+
+.mh-meter {
+  --_size: calc(var(--mh-control-sm) / 3);
+  --_gap: max(2px, calc(var(--mh-space-xxs) / 2));
+  display: flex;
+  gap: var(--_gap);
+  width: 100%;
+  min-width: var(--mh-control-lg);
+  height: var(--_size);
+}
+.mh-meter--sm { --_size: calc(var(--mh-control-sm) / 4.5); }
+.mh-meter--lg { --_size: calc(var(--mh-control-sm) / 2); }
+.mh-meter__seg {
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: calc(var(--mh-radius-sm) / 2);
+  background: color-mix(in srgb, var(--mh-text) 12%, transparent);
+  transition: background-color var(--mh-duration-fast) var(--mh-ease);
+}
+.mh-meter__seg.is-on { background: var(--_c); }
+.mh-meter--zones .mh-meter__seg.is-on.is-ok { background: var(--mh-success); }
+.mh-meter--zones .mh-meter__seg.is-on.is-warning { background: var(--mh-warning); }
+.mh-meter--zones .mh-meter__seg.is-on.is-danger { background: var(--mh-danger); }
+[data-mh-high-contrast] .mh-meter__seg:not(.is-on) { background: transparent; box-shadow: inset 0 0 0 1px var(--mh-outline-strong); }
+.mh-meter--vertical { flex-direction: column-reverse; width: var(--_size); min-width: 0; height: calc(var(--mh-control-lg) * 2); }
+/* Bars: fixed-width columns rising to their --_h, bottom-aligned, sized like an icon next to text. */
+.mh-meter--bars { --_size: calc(var(--mh-control-sm) * 0.6); display: inline-flex; align-items: flex-end; width: auto; min-width: 0; vertical-align: middle; }
+.mh-meter--bars.mh-meter--sm { --_size: calc(var(--mh-control-sm) * 0.45); }
+.mh-meter--bars.mh-meter--lg { --_size: var(--mh-control-sm); }
+.mh-meter--bars .mh-meter__seg { flex: 0 0 auto; width: calc(var(--_size) / 4.5); height: var(--_h); }
+
+/* Level meter ------------------------------------------------------------------------------------------------- */
+
+.mh-level-meter {
+  --_size: calc(var(--mh-control-sm) / 4);
+  --_name: 1.5ch;
+  display: grid;
+  gap: var(--mh-space-xxs);
+  width: 100%;
+  min-width: calc(var(--mh-control-lg) * 1.5);
+  font-size: var(--mh-text-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--mh-text-muted);
+}
+.mh-level-meter--sm { --_size: calc(var(--mh-control-sm) / 6); }
+.mh-level-meter--lg { --_size: calc(var(--mh-control-sm) / 2.5); }
+.mh-level-meter__channels { display: grid; gap: max(2px, calc(var(--mh-space-xxs) / 2)); }
+.mh-level-meter__channel { display: flex; align-items: center; gap: var(--mh-space-xs); min-width: 0; }
+.mh-level-meter__name { flex: 0 0 var(--_name); line-height: 1; text-align: center; }
+.mh-level-meter__track {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--_size);
+  overflow: hidden;
+  border-radius: calc(var(--mh-radius-sm) / 2);
+  background: color-mix(in srgb, var(--mh-text) 10%, transparent);
+}
+.mh-level-meter__fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--mh-success) 0 var(--_warn), var(--mh-warning) var(--_warn) var(--_danger), var(--mh-danger) var(--_danger));
+  clip-path: inset(0 calc(100% - var(--_level) * 100%) 0 0);
+}
+.mh-level-meter__peak {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--_peak) * 100%);
+  width: max(2px, calc(var(--_size) / 3));
+  background: var(--mh-text);
+  transform: translateX(-100%);
+}
+.mh-level-meter__peak.is-clip { background: var(--mh-danger); }
+.mh-level-meter--segmented .mh-level-meter__fill {
+  --_seg: max(3px, calc(var(--_size) * 0.9));
+  mask-image: repeating-linear-gradient(to right, var(--mh-text) 0 var(--_seg), transparent var(--_seg) calc(var(--_seg) + 2px));
+}
+.mh-level-meter__scale { position: relative; height: 1.2em; line-height: 1; color: var(--mh-text-faint); }
+.mh-level-meter__scale.has-names { margin-inline-start: calc(var(--_name) + var(--mh-space-xs)); }
+/* Ticks shift by their own position, so the first sits flush left and the last flush right. */
+.mh-level-meter__tick { position: absolute; left: var(--_at); white-space: nowrap; transform: translateX(calc(var(--_at) * -1)); }
+
+.mh-level-meter--vertical { display: inline-grid; grid-auto-flow: column; justify-content: start; width: auto; min-width: 0; height: calc(var(--mh-control-lg) * 3); }
+.mh-level-meter--vertical .mh-level-meter__channels { grid-auto-flow: column; height: 100%; }
+.mh-level-meter--vertical .mh-level-meter__channel { flex-direction: column-reverse; height: 100%; gap: var(--mh-space-xxs); }
+.mh-level-meter--vertical .mh-level-meter__name { flex: 0 0 auto; }
+.mh-level-meter--vertical .mh-level-meter__track { flex: 1 1 auto; width: var(--_size); height: auto; }
+.mh-level-meter--vertical .mh-level-meter__fill {
+  background: linear-gradient(to top, var(--mh-success) 0 var(--_warn), var(--mh-warning) var(--_warn) var(--_danger), var(--mh-danger) var(--_danger));
+  clip-path: inset(calc(100% - var(--_level) * 100%) 0 0 0);
+}
+.mh-level-meter--vertical.mh-level-meter--segmented .mh-level-meter__fill {
+  mask-image: repeating-linear-gradient(to top, var(--mh-text) 0 var(--_seg), transparent var(--_seg) calc(var(--_seg) + 2px));
+}
+.mh-level-meter--vertical .mh-level-meter__peak { top: auto; right: 0; bottom: calc(var(--_peak) * 100%); left: 0; width: auto; height: max(2px, calc(var(--_size) / 3)); transform: translateY(100%); }
+.mh-level-meter--vertical .mh-level-meter__scale { width: 3ch; height: 100%; }
+.mh-level-meter--vertical .mh-level-meter__scale.has-names { margin: 0 0 calc(1em + var(--mh-space-xxs)); }
+.mh-level-meter--vertical .mh-level-meter__tick { left: 0; bottom: var(--_at); transform: translateY(var(--_at)); }
+
+/* Waveform ---------------------------------------------------------------------------------------------------- */
+
+/* Stroke widths follow the container's width per bucket (container query units), so bars keep their spacing. */
+.mh-waveform {
+  --_h: calc(var(--mh-control-lg) * 1.25);
+  --_n: 1;
+  --_pos: 100%;
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: var(--mh-control-lg);
+  height: var(--_h);
+  container-type: inline-size;
+}
+.mh-waveform--sm { --_h: var(--mh-control-md); }
+.mh-waveform--lg { --_h: calc(var(--mh-control-lg) * 2); }
+.mh-waveform__svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: visible; }
+.mh-waveform__wave {
+  fill: none;
+  stroke: color-mix(in srgb, var(--mh-text) 28%, transparent);
+  stroke-width: clamp(1px, calc(100cqi / var(--_n) * 0.6), calc(var(--mh-control-sm) / 3));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+[data-mh-corners='square'] .mh-waveform__wave { stroke-linecap: butt; stroke-linejoin: miter; }
+.mh-waveform__played { clip-path: inset(0 calc(100% - var(--_pos)) 0 0); }
+.mh-waveform__played .mh-waveform__wave { stroke: var(--_c); }
+.mh-waveform--envelope .mh-waveform__wave { fill: color-mix(in srgb, var(--mh-text) 22%, transparent); stroke: none; }
+.mh-waveform--envelope .mh-waveform__played .mh-waveform__wave { fill: var(--_c); }
+.mh-waveform--line .mh-waveform__wave { stroke-width: 1.5px; }
+[data-mh-high-contrast] .mh-waveform--line .mh-waveform__wave { stroke-width: 2.5px; }
+.mh-waveform--dots .mh-waveform__wave { stroke-width: clamp(1.5px, calc(100cqi / var(--_n) * 0.55), calc(var(--mh-control-sm) / 4)); stroke-linecap: round; }
+[data-mh-corners='square'] .mh-waveform--dots .mh-waveform__wave { stroke-linecap: square; }
+.mh-waveform__selection { position: absolute; top: 0; bottom: 0; border-inline: 1px solid var(--_c); background: var(--mh-selection); pointer-events: none; }
+.mh-waveform__playhead {
+  position: absolute;
+  top: calc(var(--mh-space-xxs) * -1);
+  bottom: calc(var(--mh-space-xxs) * -1);
+  width: 2px;
+  border-radius: var(--mh-radius-full);
+  background: var(--mh-heading);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.mh-waveform--interactive { cursor: pointer; touch-action: pan-y; user-select: none; }
+.mh-waveform--interactive:focus-visible { outline: var(--mh-focus-width) solid var(--mh-focus); outline-offset: var(--mh-space-xs); border-radius: var(--mh-radius-sm); }
+
+/* Histogram --------------------------------------------------------------------------------------------------- */
+
+.mh-histogram {
+  --_h: calc(var(--mh-control-lg) * 1.5);
+  position: relative;
+  width: 100%;
+  min-width: var(--mh-control-lg);
+  height: var(--_h);
+  overflow: hidden;
+  border-radius: var(--mh-radius-sm);
+  background: color-mix(in srgb, var(--mh-text) 5%, transparent);
+}
+.mh-histogram--sm { --_h: var(--mh-control-lg); }
+.mh-histogram--lg { --_h: calc(var(--mh-control-lg) * 2.5); }
+.mh-histogram__svg { display: block; width: 100%; height: 100%; }
+.mh-histogram__grid { fill: none; stroke: var(--mh-divider); stroke-width: 1px; }
+.mh-histogram__channel { --_c: var(--mh-text-muted); fill: color-mix(in srgb, var(--_c) 32%, transparent); stroke: var(--_c); stroke-width: 1px; stroke-linejoin: round; }
+.mh-histogram__channel--luminance { fill: color-mix(in srgb, var(--_c) 45%, transparent); }
+.mh-histogram__channel--red { --_c: var(--mh-danger); }
+.mh-histogram__channel--green { --_c: var(--mh-success); }
+.mh-histogram__channel--blue { --_c: var(--mh-info); }
+.mh-histogram__clip { position: absolute; top: var(--mh-space-xxs); width: calc(var(--mh-control-sm) / 5); aspect-ratio: 1; border-radius: var(--mh-radius-full); background: var(--mh-warning); }
+.mh-histogram__clip--shadows { left: var(--mh-space-xxs); }
+.mh-histogram__clip--highlights { right: var(--mh-space-xxs); }
+
+/* Curves editor ----------------------------------------------------------------------------------------------- */
+
+.mh-curves { --_c: var(--mh-accent); width: 100%; min-width: 0; padding: calc(var(--mh-control-sm) * 0.2); max-width: calc(var(--mh-control-lg) * 6); }
+.mh-curves--sm { max-width: calc(var(--mh-control-lg) * 4); }
+.mh-curves--lg { max-width: calc(var(--mh-control-lg) * 9); }
+.mh-curves--red { --_c: var(--mh-danger); }
+.mh-curves--green { --_c: var(--mh-success); }
+.mh-curves--blue { --_c: var(--mh-info); }
+.mh-curves.is-disabled { opacity: 0.5; pointer-events: none; }
+.mh-curves__plot {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--mh-radius-sm);
+  background: color-mix(in srgb, var(--mh-text) 5%, transparent);
+  box-shadow: inset 0 0 0 1px var(--mh-divider);
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+}
+.mh-curves__svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: visible; }
+.mh-curves__histogram { fill: color-mix(in srgb, var(--mh-text-muted) 22%, transparent); }
+.mh-curves__grid { fill: none; stroke: var(--mh-divider); stroke-width: 1px; }
+.mh-curves__identity { fill: none; stroke: var(--mh-outline); stroke-width: 1px; stroke-dasharray: 4 4; }
+.mh-curves__curve { fill: none; stroke: var(--_c); stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; }
+[data-mh-high-contrast] .mh-curves__curve { stroke-width: 3px; }
+/* The point is a touch-sized hit area; the visible handle is its ::after. */
+.mh-curves__point {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: var(--mh-control-sm);
+  height: var(--mh-control-sm);
+  border-radius: var(--mh-radius-full);
+  outline: none;
+  cursor: grab;
+  touch-action: none;
+  transform: translate(-50%, -50%);
+}
+.mh-curves__point::after {
+  content: '';
+  box-sizing: border-box;
+  width: calc(var(--mh-control-sm) * 0.4);
+  aspect-ratio: 1;
+  border: 2px solid var(--_c);
+  border-radius: var(--mh-radius-full);
+  background: var(--mh-surface-solid);
+  transition: transform var(--mh-duration-fast) var(--mh-ease), background-color var(--mh-duration-fast) var(--mh-ease);
+}
+[data-mh-corners='square'] .mh-curves__point::after { border-radius: 0; }
+.mh-curves__point:hover::after { transform: scale(1.15); }
+.mh-curves__point:focus::after { background: var(--_c); }
+.mh-curves__point:focus-visible::after { outline: var(--mh-focus-width) solid var(--mh-focus); outline-offset: 2px; }
+.mh-curves__point:active { cursor: grabbing; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mh-bar-chart__bar, .mh-meter__seg, .mh-curves__point::after { transition: none; }
+}
